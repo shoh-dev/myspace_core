@@ -1,6 +1,6 @@
 flutter create
---org com.shoh.dev.fcode.core 
--t package fcode_core
+--org com.shoh.dev.myspace.core 
+-t package myspace_core
 
 
 ### Info
