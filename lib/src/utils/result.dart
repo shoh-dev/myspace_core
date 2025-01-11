@@ -26,7 +26,7 @@ sealed class Result<T> {
   const factory Result.ok(T value) = ResultOk._;
 
   /// Creates an error [Result], completed with the specified [error].
-  const factory Result.error(Exception error) = ResultError._;
+  const factory Result.error(ResultException error) = ResultError._;
 
   @override
   String toString() => 'Result<$T>';
@@ -68,7 +68,7 @@ final class ResultError<T> extends Result<T> {
   const ResultError._(this.error);
 
   /// The resulting error of this result.
-  final Exception error;
+  final ResultException error;
 
   @override
   String toString() => 'Result<$T>.error($error)';
@@ -82,4 +82,23 @@ final class ResultError<T> extends Result<T> {
 
   @override
   int get hashCode => error.hashCode;
+}
+
+class ResultException implements Exception {
+  final dynamic message;
+
+  ResultException(this.message);
+
+  @override
+  String toString() => message;
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is ResultException && other.message == message;
+  }
+
+  @override
+  int get hashCode => message.hashCode;
 }
