@@ -14,7 +14,7 @@ class AppStore<St> {
 
   Store<St> createStore() {
     return Store<St>(
-      reducer.reducer,
+      (state, action) => reducer.reducer(state, action),
       distinct: true,
       initialState: initialState,
       middleware: [

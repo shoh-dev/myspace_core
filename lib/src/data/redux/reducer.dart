@@ -1,13 +1,9 @@
-import 'package:redux/redux.dart';
-
 abstract class AppReducer<T> {
-  T reducer(T state, dynamic action);
+  T reducer(T state, UpdateStateReducer action);
 }
 
-abstract interface class UpdateStateReducer<St, A> {
+abstract class UpdateStateReducer<St> {
   const UpdateStateReducer();
 
-  St rebuildState(St state, A action);
-
-  Reducer<St> get reducer;
+  St rebuildState(St oldState);
 }
