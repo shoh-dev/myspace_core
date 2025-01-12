@@ -4,7 +4,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:myspace_core/myspace_core.dart';
-import 'package:myspace_core/src/data/redux/ui/state_provider.dart';
 
 abstract class ResultStateProvider<St, Vm>
     extends BaseStateProvider<St, Result<Vm>> {
