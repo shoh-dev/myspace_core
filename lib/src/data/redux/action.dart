@@ -20,7 +20,7 @@ abstract class DefaultAction<St, R> {
       St state, NextDispatcher next); //handle return type
 
   //Call this method from UI
-  FutureOr<Result<R>> execute() async {
+  FutureOr<Result<R>> execute() {
     if (_runningActions.containsKey(runtimeType)) {
       log('[$runtimeType] is already running');
       return Result.error(ResultException('Action is already running'));
