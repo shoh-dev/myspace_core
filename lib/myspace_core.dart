@@ -7,3 +7,5 @@ export 'src/data/redux/reducer.dart';
 export 'src/data/redux/action.dart';
 export 'src/data/redux/ui/store_provider.dart';
 export 'src/data/redux/ui/state_provider.dart';
+
+export 'src/data/dependency_injection/dependency_injection.dart';

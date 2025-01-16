@@ -1,11 +1,15 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:flutter/foundation.dart';
 import 'package:myspace_core/myspace_core.dart';
 import 'package:redux/redux.dart';
 
 Map<Type, DefaultAction> _runningActions = {};
 
+//add an annotation to this variable so that this is not accessible other than this file
+@visibleForTesting
+@protected
 Store? applicationStore;
 
 ///[St] is the root state type
@@ -22,17 +26,16 @@ abstract class DefaultAction<St, R> {
   //Call this method from UI
   FutureOr<Result<R>> execute() {
     if (_runningActions.containsKey(runtimeType)) {
-      log('[$runtimeType] is already running');
+      log('[$runtimeType] RUNNING ALREADY');
       return Result.error(ResultException('Action is already running'));
     }
 
     _runningActions[runtimeType] = this;
-    log('[$runtimeType] is running now');
+    log('[$runtimeType] CALL');
 
     final result = applicationStore?.dispatch(this);
 
     _runningActions.remove(runtimeType);
-    log('[$runtimeType] is finished');
 
     return result;
   }

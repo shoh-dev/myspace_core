@@ -22,6 +22,8 @@ abstract class BaseStateProvider<St, Vm> extends StatelessWidget {
 
   ///[selector] is called to get the viewModel from the state
   Vm selector(St state);
+
+  Widget? wrapper(Widget child) => null;
 }
 
 // abstract class BaseStatefulProvider<St, Vm> extends StatefulWidget {
@@ -54,7 +56,7 @@ abstract class StateProvider<St, Vm> extends BaseStateProvider<St, Vm> {
   @nonVirtual
   @override
   Widget build(BuildContext context) {
-    return StoreConnector<St, Vm>(
+    final sc = StoreConnector<St, Vm>(
       distinct: true,
       converter: (store) => selector(store.state),
       onInitialBuild: onInitialBuild,
@@ -65,5 +67,7 @@ abstract class StateProvider<St, Vm> extends BaseStateProvider<St, Vm> {
         return builder(context, vm);
       },
     );
+
+    return wrapper(sc) ?? sc;
   }
 }

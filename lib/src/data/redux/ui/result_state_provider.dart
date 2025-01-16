@@ -21,7 +21,7 @@ abstract class ResultStateProvider<St, Vm>
   @nonVirtual
   @override
   Widget build(BuildContext context) {
-    return StoreConnector<St, Result<Vm>>(
+    final sc = StoreConnector<St, Result<Vm>>(
       distinct: true,
       converter: (store) => selector(store.state),
       onInitialBuild: onInitialBuild,
@@ -36,28 +36,27 @@ abstract class ResultStateProvider<St, Vm>
 
         //Error builder
         if (vm is ResultError) {
-          final error = errorBuilder.call(context, vm as ResultError<Vm>);
-          if (error != null) return error;
-          return Center(
-              child: Text((vm as ResultError)
-                  .error
-                  .toString())); //todo: change to ErrorIndicator
-          // return ErrorIndicator(
-          // title: "Error loading",
-          // label: (vm as ResultError).error.toString(),
-          // onPressed: retryAction,
-          // );
+          Widget? error = errorBuilder.call(context, vm as ResultError<Vm>);
+          error ??= Text((vm as ResultError)
+              .error
+              .toString()); //todo: change to ErrorIndicator
+          return error;
         }
 
         //Ok builder
         final ok = okBuilder.call(context, vm as ResultOk<Vm>);
-        if (ok != null) return ok;
+        if (ok != null) {
+          return ok;
+        }
 
         assert(ok != null || custom != null,
             "You must provide either an [okBuilder] or a [customBuilder]");
 
-        return const SizedBox();
+        final none = const SizedBox();
+        return none;
       },
     );
+
+    return wrapper(sc) ?? sc;
   }
 }
