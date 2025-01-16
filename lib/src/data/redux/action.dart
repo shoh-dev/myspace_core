@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
 import 'package:myspace_core/myspace_core.dart';
+import 'package:myspace_core/src/data/dependency_injection/dependency_injection.dart';
 import 'package:redux/redux.dart';
 
 Map<Type, DefaultAction> _runningActions = {};
@@ -16,6 +17,10 @@ Store? applicationStore;
 ///[R] is the return type
 abstract class DefaultAction<St, R> {
   const DefaultAction();
+
+  T getDependency<T extends Object>() {
+    return DependencyInjection.get<T>();
+  }
 
   //Call this method in redux middleware
   bool get isRunning => _runningActions.containsKey(runtimeType);

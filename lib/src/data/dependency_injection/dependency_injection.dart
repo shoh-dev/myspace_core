@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:get_it/get_it.dart';
 
 abstract class DependencyInjection {
@@ -8,6 +10,8 @@ abstract class DependencyInjection {
       _getIt.unregister<T>();
     }
     _getIt.registerLazySingleton<T>(() => di);
+
+    log("Registered $T");
   }
 
   static T get<T extends Object>() {
