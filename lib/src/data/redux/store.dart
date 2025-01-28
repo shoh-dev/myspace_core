@@ -5,7 +5,7 @@ import 'package:redux/redux.dart';
 
 class AppStore<St> {
   final St initialState;
-  final AppReducer<St> reducer;
+  final ReducerCore<St> reducer;
   final AppMiddleware<St> _middleware;
 
   AppStore({
@@ -18,7 +18,8 @@ class AppStore<St> {
   }
 
   Store<St> createStore() {
-    return Store<St>(
+    print('Creating store');
+    final store = Store<St>(
       (state, action) => reducer.reducer(state, action),
       distinct: true,
       initialState: initialState,
@@ -26,5 +27,13 @@ class AppStore<St> {
         _middleware.call,
       ],
     );
+
+    if (DependencyInjection.isRegistered<Store<St>>()) {
+      DependencyInjection.unregister<Store<St>>();
+    }
+
+    register<Store<St>>(store);
+
+    return store;
   }
 }

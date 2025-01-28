@@ -11,6 +11,8 @@ dependencies:
   flutter:
     sdk: flutter
 
+  myspace_design_system: ^0.0.1
+
   redux: ^5.0.0
   flutter_redux: ^0.10.0
 

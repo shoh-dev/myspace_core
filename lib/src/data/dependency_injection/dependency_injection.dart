@@ -17,4 +17,12 @@ abstract class DependencyInjection {
   static T get<T extends Object>() {
     return _getIt.get<T>();
   }
+
+  static bool isRegistered<T extends Object>() {
+    return _getIt.isRegistered<T>();
+  }
+
+  static void unregister<T extends Object>() {
+    _getIt.unregister<T>();
+  }
 }

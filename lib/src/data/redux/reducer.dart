@@ -1,4 +1,4 @@
-abstract class AppReducer<T> {
+abstract class ReducerCore<T> {
   T reducer(T state, UpdateStateReducer action);
 }
 

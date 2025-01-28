@@ -90,7 +90,7 @@ class ResultException implements Exception {
   ResultException(this.message);
 
   @override
-  String toString() => message;
+  String toString() => message.toString();
 
   @override
   bool operator ==(Object other) {
@@ -101,4 +101,9 @@ class ResultException implements Exception {
 
   @override
   int get hashCode => message.hashCode;
+}
+
+extension ResultHelper on Result {
+  bool get isOk => this is ResultOk;
+  bool get isError => this is ResultError;
 }
