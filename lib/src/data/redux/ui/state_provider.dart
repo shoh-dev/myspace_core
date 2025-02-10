@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 
-export 'result_state_provider.dart';
+export 'state_status_provider.dart';
 
 abstract class BaseStateProvider<St, Vm> extends StatelessWidget {
   const BaseStateProvider({super.key});

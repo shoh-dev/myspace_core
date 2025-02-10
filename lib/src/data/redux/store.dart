@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:myspace_core/src/data/dependency_injection/dependency_injection.dart';
 import 'package:myspace_core/src/data/redux/middleware.dart';
 import 'package:myspace_core/src/data/redux/reducer.dart';
@@ -18,7 +19,7 @@ class AppStore<St> {
   }
 
   Store<St> createStore() {
-    print('Creating store');
+    debugPrint('Creating store');
     final store = Store<St>(
       (state, action) => reducer.reducer(state, action),
       distinct: true,

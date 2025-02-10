@@ -13,12 +13,13 @@ dependencies:
 
   myspace_design_system: ^0.0.1
 
+  async_redux: ^24.0.7
   redux: ^5.0.0
   flutter_redux: ^0.10.0
 
   get_it: ^8.0.3
   intl: ^0.20.1
-
+  equatable: ^2.0.7
 
 dev_dependencies:
   flutter_test:
