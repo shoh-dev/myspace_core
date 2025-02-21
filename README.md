@@ -1,3 +1,6 @@
+<!-- DEPRICATED -->
+<!-- From now on using 'myspace_data' for di and redux -->
+
 flutter create
 --org com.shoh.dev.myspace.core 
 -t package myspace_core

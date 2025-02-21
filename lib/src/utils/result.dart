@@ -106,4 +106,7 @@ class ResultException implements Exception {
 extension ResultHelper on Result {
   bool get isOk => this is ResultOk;
   bool get isError => this is ResultError;
+
+  ResultOk get asOk => this as ResultOk;
+  ResultError get asError => this as ResultError;
 }
