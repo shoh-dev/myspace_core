@@ -26,28 +26,6 @@ abstract class BaseStateProvider<St, Vm> extends StatelessWidget {
   Widget? wrapper(Widget child) => null;
 }
 
-// abstract class BaseStatefulProvider<St, Vm> extends StatefulWidget {
-//   const BaseStatefulProvider({super.key});
-
-//   ///[onInitialBuild] is called when the widget is built for the first time
-//   FutureOr<void> onInitialBuild(Vm vm) {}
-
-//   ///[onDispose] is called when the widget is disposed
-//   FutureOr<void> onDispose(Store<St> store) {}
-
-//   ///[onDidChange] is called when the [viewModel] changes
-//   FutureOr<void> onDidChange(Vm? previousViewModel, Vm viewModel) {}
-
-//   ///[selector] is called to get the viewModel from the state
-//   Vm selector(St state);
-// }
-
-// abstract class BaseStatefulProviderState<W extends BaseStatefulProvider>
-//     extends State<W> {
-//   @override
-//   Widget build(BuildContext context);
-// }
-
 abstract class StateProvider<St, Vm> extends BaseStateProvider<St, Vm> {
   const StateProvider({super.key});
 
