@@ -14,7 +14,7 @@ void main() {
   runMySpaceApp(_appConfig);
 }
 
-final _appConfig = CoreAppConfig(
+final _appConfig = CoreAppConfig<AppStore>(
   appStore: AppStore(),
   root: UIRoot(
     layouts: [
@@ -41,7 +41,6 @@ final _appConfig = CoreAppConfig(
             UIPage(
               name: 'homepage',
               path: "/home",
-
               vm: (context) => HomePageVm(context: context),
               builder: (context, state, vm) {
                 return HomePage(vm as HomePageVm);

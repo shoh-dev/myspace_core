@@ -3,22 +3,20 @@ import 'package:myspace_core/src/data/app_store.dart';
 import 'package:myspace_ui/myspace_ui.dart';
 import 'package:provider/provider.dart';
 
-Future<void> runMySpaceApp(CoreAppConfig config) async {
+Future<void> runMySpaceApp<St extends CoreAppStore>(
+    CoreAppConfig<St> config) async {
   final router = config.root.toRouter();
   final appStore = config.appStore;
   runApp(
     MultiProvider(
-      providers: [ChangeNotifierProvider.value(value: appStore)],
-      child: UIApp(
-        routerConfig: router,
-      ),
-    ),
+        providers: [ChangeNotifierProvider.value(value: appStore)],
+        child: UIApp(routerConfig: router)),
   );
 }
 
-class CoreAppConfig {
+class CoreAppConfig<St extends CoreAppStore> {
   final UIRoot root;
-  final CoreAppStore appStore;
+  final St appStore;
 
   CoreAppConfig({
     required this.root,
