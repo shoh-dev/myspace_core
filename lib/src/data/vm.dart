@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:myspace_core/src/data/app_store.dart';
 import 'package:provider/provider.dart';
@@ -5,9 +7,18 @@ import 'package:provider/provider.dart';
 abstract class Vm extends ChangeNotifier {
   final BuildContext _context;
 
+  bool isDisposed = false;
+
   Vm({required BuildContext context}) : _context = context;
 
   CoreAppStore get appStore => _context.read();
+
+  @override
+  void dispose() {
+    super.dispose();
+    isDisposed = true;
+    log("Called dispose() for $runtimeType VM");
+  }
 }
 
 class VmProvider extends StatelessWidget {
@@ -41,7 +52,7 @@ class AppStoreProvider<St extends CoreAppStore> extends StatelessWidget {
   Widget build(BuildContext context) {
     return builder(
       context,
-      context.watch<St>(),
+      context.watchAppStore<St>(),
     );
   }
 }

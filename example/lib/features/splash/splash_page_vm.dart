@@ -1,4 +1,3 @@
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:myspace_core/myspace_core.dart';
 
 class SplashPageVm extends Vm {

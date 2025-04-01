@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 abstract class CoreAppStore extends ChangeNotifier {
   int counter = 0;
@@ -7,4 +8,9 @@ abstract class CoreAppStore extends ChangeNotifier {
     counter += 1;
     notifyListeners();
   }
+}
+
+extension AppStoreContextHelper on BuildContext {
+  St readAppStore<St extends CoreAppStore>() => read<St>();
+  St watchAppStore<St extends CoreAppStore>() => watch<St>();
 }

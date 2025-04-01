@@ -9,8 +9,9 @@ Future<void> runMySpaceApp<St extends CoreAppStore>(
   final appStore = config.appStore;
   runApp(
     MultiProvider(
-        providers: [ChangeNotifierProvider.value(value: appStore)],
-        child: UIApp(routerConfig: router)),
+      providers: [ChangeNotifierProvider.value(value: appStore)],
+      child: UIApp(routerConfig: router),
+    ),
   );
 }
 
