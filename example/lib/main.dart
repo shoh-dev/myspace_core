@@ -14,16 +14,6 @@ void main() {
     root:
         (store) => UIRoot(
           refreshListenable: store,
-          redirect: (context, state) {
-            final counter = context.readAppStore<AppStore>().counter;
-            // print(
-            // "context.readAppStore() ${context.readAppStore<AppStore>().counter}",
-            // );
-            if (counter == 4) {
-              return "/home";
-            }
-            return null;
-          },
           layouts: [SplashPageLayout.layout, HomePageLayout.layout],
         ),
     dependencies: [

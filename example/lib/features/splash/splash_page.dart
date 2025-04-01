@@ -19,7 +19,7 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void dispose() {
     // log('Dispose SplashPage');
-    // widget.vm.dispose();
+    widget.vm.dispose();
     super.dispose();
   }
 
