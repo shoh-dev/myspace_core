@@ -1,7 +1,6 @@
-import 'dart:developer';
-
 import 'package:example/core/store.dart';
 import 'package:example/features/splash/splash_page_vm.dart';
+import 'package:example/main.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:myspace_core/myspace_core.dart';
@@ -26,7 +25,7 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   Widget build(BuildContext context) {
-    print('build SplashPage');
+    print('Building SplashPage');
 
     return Center(
       child: Column(
@@ -40,10 +39,8 @@ class _SplashPageState extends State<SplashPage> {
           VmProvider(
             vm: widget.vm,
             builder: (context) {
-              print('build counter1');
               return TextButton(
                 onPressed: () {
-                  GoRouter.of(context).refresh();
                   widget.vm.incrementCounter1();
                 },
                 child: Text(widget.vm.counter1.toString()),
@@ -56,7 +53,7 @@ class _SplashPageState extends State<SplashPage> {
               print('build store counter');
               return TextButton(
                 onPressed: store.increment,
-                child: Text("Store: ${store.counter}"),
+                child: Text("Store: ${widget.vm.appStore.counter}"),
               );
             },
           ),
@@ -128,6 +125,16 @@ class _SplashPageState extends State<SplashPage> {
                 child: Text('Show Prompt'),
               );
             },
+          ),
+
+          TextButton(
+            onPressed: () {
+              // final authClient = context.readDependency<AuthApiClient>();
+              // authClient.login();
+              final authClient = context.readDependency<AuthApiClient>();
+              authClient.login();
+            },
+            child: Text('Login'),
           ),
         ],
       ),

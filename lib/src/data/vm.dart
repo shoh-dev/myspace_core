@@ -2,16 +2,15 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:myspace_core/src/data/app_store.dart';
-import 'package:provider/provider.dart';
 
-abstract class Vm extends ChangeNotifier {
+abstract class Vm<St extends CoreAppStore> extends ChangeNotifier {
   final BuildContext _context;
 
   bool isDisposed = false;
 
   Vm({required BuildContext context}) : _context = context;
 
-  CoreAppStore get appStore => _context.read();
+  St get appStore => _context.readAppStore<St>();
 
   @override
   void dispose() {

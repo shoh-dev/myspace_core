@@ -5,22 +5,27 @@ import 'package:provider/provider.dart';
 
 Future<void> runMySpaceApp<St extends CoreAppStore>(
     CoreAppConfig<St> config) async {
-  final router = config.root.toRouter();
   final appStore = config.appStore;
+  final dependencies = config.dependencies;
   runApp(
     MultiProvider(
-      providers: [ChangeNotifierProvider.value(value: appStore)],
-      child: UIApp(routerConfig: router),
+      providers: [
+        ChangeNotifierProvider<St>.value(value: appStore),
+        for (final dep in dependencies) dep,
+      ],
+      child: UIApp(routerConfig: config.root(appStore).toRouter()),
     ),
   );
 }
 
 class CoreAppConfig<St extends CoreAppStore> {
-  final UIRoot root;
   final St appStore;
+  final UIRoot Function(St store) root;
+  final List<InheritedProvider> dependencies;
 
   CoreAppConfig({
     required this.root,
     required this.appStore,
+    this.dependencies = const [],
   });
 }

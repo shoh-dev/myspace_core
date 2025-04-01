@@ -11,6 +11,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('Building HomePage');
     return ListenableBuilder(
       listenable: vm,
       builder: (context, _) {
