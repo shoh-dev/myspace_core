@@ -11,6 +11,10 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   final appConfig = CoreAppConfig<AppStore>(
     appStore: AppStore(),
+    theme: UITheme(
+      themeMode: (context) => context.watchDependency<ThemeDep>().themeMode,
+      darkTheme: (context) => ThemeData.dark(),
+    ),
     root:
         (store) => UIRoot(
           refreshListenable: store,
@@ -21,6 +25,7 @@ void main() {
       Provider<AuthApiClient>(
         create: (context) => AuthApiClient(context.readDependency()),
       ),
+      ChangeNotifierProvider<ThemeDep>(create: (context) => ThemeDep()),
     ],
   );
   runMySpaceApp(appConfig);
@@ -44,5 +49,18 @@ class AuthApiClient extends Dependency {
   void login() {
     log('AuthApiClient login');
     _apiClient.get('/login');
+  }
+}
+
+class ThemeDep extends DependencyListener {
+  ThemeMode themeMode = ThemeMode.light;
+
+  void toggleThemeMode() {
+    if (themeMode == ThemeMode.light) {
+      themeMode = ThemeMode.dark;
+    } else {
+      themeMode = ThemeMode.light;
+    }
+    notifyListeners();
   }
 }

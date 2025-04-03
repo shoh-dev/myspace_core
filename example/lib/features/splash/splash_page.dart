@@ -50,13 +50,13 @@ class _SplashPageState extends State<SplashPage> {
           ),
 
           // VmProvider(
-          //   vm: widget.layoutVm,
+          //   vm: widget.vm,
           //   builder: (context) {
           //     return TextButton(
-          //       onPressed: widget.layoutVm.incrementCounter,
-          //       child: Text(
-          //         "Layout counter: ${widget.layoutVm.counter.toString()}",
-          //       ),
+          //       onPressed: () {
+          //         widget.vm.incrementCounter1();
+          //       },
+          //       child: Text(widget.vm.storeCounter.toString()),
           //     );
           //   },
           // ),
@@ -65,7 +65,7 @@ class _SplashPageState extends State<SplashPage> {
               // print('build store counter');
               return TextButton(
                 onPressed: store.increment,
-                child: Text("Store:"),
+                child: Text("Store: ${store.counter}"),
               );
             },
           ),
@@ -172,6 +172,13 @@ class _SplashPageState extends State<SplashPage> {
               authClient.login();
             },
             child: Text('Login'),
+          ),
+
+          TextButton(
+            onPressed: () {
+              context.readDependency<ThemeDep>().toggleThemeMode();
+            },
+            child: Text('Toogle theme'),
           ),
         ],
       ),

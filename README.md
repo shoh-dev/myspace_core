@@ -17,6 +17,7 @@ Tools • Dart 3.6.0 • DevTools 2.40.2
 
 <!-- TODOS -->
 - [x] dependency injection
-- UI (theme)
+- [x] UI (theme)
+- env
 - dev tool
 - plugins (rest, graphql, supabase, etc)
