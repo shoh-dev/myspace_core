@@ -1,4 +1,5 @@
 import 'package:example/core/store.dart';
+import 'package:example/features/splash/splash_layout.dart';
 import 'package:example/features/splash/splash_page_vm.dart';
 import 'package:example/main.dart';
 import 'package:flutter/material.dart';
@@ -48,19 +49,30 @@ class _SplashPageState extends State<SplashPage> {
             },
           ),
 
+          // VmProvider(
+          //   vm: widget.layoutVm,
+          //   builder: (context) {
+          //     return TextButton(
+          //       onPressed: widget.layoutVm.incrementCounter,
+          //       child: Text(
+          //         "Layout counter: ${widget.layoutVm.counter.toString()}",
+          //       ),
+          //     );
+          //   },
+          // ),
           AppStoreProvider<AppStore>(
             builder: (context, store) {
-              print('build store counter');
+              // print('build store counter');
               return TextButton(
                 onPressed: store.increment,
-                child: Text("Store: ${widget.vm.appStore.counter}"),
+                child: Text("Store:"),
               );
             },
           ),
 
           Builder(
             builder: (context) {
-              print('build go to homepage button');
+              // print('build go to homepage button');
               return TextButton(
                 onPressed: () => context.goNamed('home'),
                 child: Text('Go to Homepage'),
@@ -70,7 +82,7 @@ class _SplashPageState extends State<SplashPage> {
 
           Builder(
             builder: (context) {
-              print('build show error button');
+              // print('build show error button');
               return TextButton(
                 onPressed: () => ErrorDialog.show('Something went wrong!'),
                 child: Text('Show Error'),
@@ -80,7 +92,7 @@ class _SplashPageState extends State<SplashPage> {
 
           Builder(
             builder: (context) {
-              print('build show loading button');
+              // print('build show loading button');
               return TextButton(
                 onPressed: () {
                   final cancel = LoadingDialog.show();
@@ -92,7 +104,7 @@ class _SplashPageState extends State<SplashPage> {
           ),
           Builder(
             builder: (context) {
-              print('build show info button');
+              // print('build show info button');
               return TextButton(
                 onPressed: () => InfoDialog.show('Archive only!'),
                 child: Text('Show Info'),
@@ -101,7 +113,7 @@ class _SplashPageState extends State<SplashPage> {
           ),
           Builder(
             builder: (context) {
-              print('build show success button');
+              // print('build show success button');
               return TextButton(
                 onPressed: () => SuccessDialog.show('Deleted correctly!'),
                 child: Text('Show Success'),
@@ -110,7 +122,7 @@ class _SplashPageState extends State<SplashPage> {
           ),
           Builder(
             builder: (context) {
-              print('build show prompt button');
+              // print('build show prompt button');
               return TextButton(
                 onPressed:
                     () => PromptDialog.show(

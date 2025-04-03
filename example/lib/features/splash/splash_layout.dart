@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:myspace_core/myspace_core.dart';
 import 'package:myspace_ui/myspace_ui.dart';
 
 import 'splash_page.dart';
@@ -13,9 +14,9 @@ class SplashPageLayout extends StatelessWidget {
         UIPage(
           name: 'splash',
           path: "/",
-          vm: (context) => SplashPageVm(context: context),
-          builder: (context, state, vm) {
-            return SplashPage(vm as SplashPageVm);
+          pageVm: () => SplashPageVm(),
+          builder: (context, state, pageVm) {
+            return SplashPage(pageVm as SplashPageVm);
           },
         ),
       ],
@@ -28,6 +29,14 @@ class SplashPageLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: AppBar(title: Text('Splash Layout')), body: shell);
+    return Scaffold(
+      appBar: AppBar(title: Text('Splash Layout'), actions: [
+         
+        ],
+      ),
+      body: shell,
+    );
   }
 }
+
+class SplashLayoutVm extends Vm {}

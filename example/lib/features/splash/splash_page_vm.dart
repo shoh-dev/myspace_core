@@ -1,8 +1,7 @@
-import 'package:example/core/store.dart';
 import 'package:myspace_core/myspace_core.dart';
 
-class SplashPageVm extends Vm<AppStore> {
-  SplashPageVm({required super.context});
+class SplashPageVm extends Vm {
+  SplashPageVm();
 
   int counter1 = 0;
 

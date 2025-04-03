@@ -3,20 +3,23 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:myspace_core/src/data/app_store.dart';
 
-abstract class Vm<St extends CoreAppStore> extends ChangeNotifier {
-  final BuildContext _context;
-
+abstract class Vm extends ChangeNotifier {
   bool isDisposed = false;
 
-  Vm({required BuildContext context}) : _context = context;
-
-  St get appStore => _context.readAppStore<St>();
+  Vm();
 
   @override
   void dispose() {
     super.dispose();
     isDisposed = true;
     log("Called dispose() for $runtimeType VM");
+  }
+
+  int counter = 0;
+
+  void incrementCounter() {
+    counter += 1;
+    notifyListeners();
   }
 }
 
