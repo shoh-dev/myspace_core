@@ -85,6 +85,18 @@ class _SplashPageState extends State<SplashPage> {
               // print('build show error button');
               return TextButton(
                 onPressed: () => ErrorDialog.show('Something went wrong!'),
+                // onPressed:
+                //     () => showDialog(
+                //       context: context,
+                //       builder: (context) {
+                //         return ErrorDialog(
+                //           content: 'Something went wrong!',
+                //           onClose: () {
+                //             Navigator.pop(context);
+                //           },
+                //         );
+                //       },
+                //     ),
                 child: Text('Show Error'),
               );
             },
@@ -124,16 +136,29 @@ class _SplashPageState extends State<SplashPage> {
             builder: (context) {
               // print('build show prompt button');
               return TextButton(
-                onPressed:
-                    () => PromptDialog.show(
-                      'Do you want to delete?',
-                      onLeftClick: (cancel) {
-                        cancel();
-                      },
-                      onRightClick: (cancel) {
-                        cancel();
-                      },
-                    ),
+                onPressed: () {
+                  PromptDialog.show(
+                    'Do you want to delete?',
+                    onLeftClick: (close) {
+                      close();
+                    },
+                    onRightClick: (close) {
+                      close();
+                    },
+                  );
+                },
+                // () {
+                //   showDialog(
+                //     context: context,
+                //     builder: (context) {
+                //       return PromptDialog(
+                //         content: 'Do you want to delete?',
+                //         onLeftClick: () {},
+                //         onRightClick: () {},
+                //       );
+                //     },
+                //   );
+                // },
                 child: Text('Show Prompt'),
               );
             },
