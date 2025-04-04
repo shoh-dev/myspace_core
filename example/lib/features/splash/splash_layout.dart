@@ -14,7 +14,7 @@ class SplashPageLayout extends StatelessWidget {
         UIPage(
           name: 'splash',
           path: "/",
-          pageVm: () => SplashPageVm(),
+          vm: () => SplashPageVm(),
           builder: (context, state, pageVm) {
             return SplashPage(pageVm as SplashPageVm);
           },

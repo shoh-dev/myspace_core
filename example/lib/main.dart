@@ -52,7 +52,7 @@ class AuthApiClient extends Dependency {
   }
 }
 
-class ThemeDep extends DependencyListener {
+class ThemeDep extends DependencyChangeNotifier {
   ThemeMode themeMode = ThemeMode.light;
 
   void toggleThemeMode() {

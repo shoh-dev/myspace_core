@@ -10,5 +10,5 @@ abstract class Dependency {
   const Dependency();
 }
 
-abstract class DependencyListener extends ChangeNotifier
+abstract class DependencyChangeNotifier extends ChangeNotifier
     implements Dependency {}

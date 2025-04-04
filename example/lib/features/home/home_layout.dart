@@ -13,7 +13,7 @@ class HomePageLayout extends StatelessWidget {
         UIPage(
           name: 'home',
           path: "/home",
-          pageVm: () => HomePageVm(),
+          vm: () => HomePageVm(),
           builder: (context, state, pageVm) {
             return HomePage(pageVm as HomePageVm);
           },

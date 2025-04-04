@@ -1,4 +1,3 @@
-import 'package:example/core/store.dart';
 import 'package:myspace_core/myspace_core.dart';
 
 class SplashPageVm extends Vm {

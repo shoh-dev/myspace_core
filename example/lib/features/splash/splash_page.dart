@@ -39,7 +39,7 @@ class _SplashPageState extends State<SplashPage> {
           ),
           VmProvider(
             vm: widget.vm,
-            builder: (context) {
+            builder: (context, _) {
               return TextButton(
                 onPressed: () {
                   widget.vm.incrementCounter1();
@@ -61,7 +61,7 @@ class _SplashPageState extends State<SplashPage> {
           //   },
           // ),
           AppStoreProvider<AppStore>(
-            builder: (context, store) {
+            builder: (context, store, _) {
               // print('build store counter');
               return TextButton(
                 onPressed: store.increment,

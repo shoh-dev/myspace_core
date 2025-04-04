@@ -31,7 +31,7 @@ class CoreAppConfig<St extends CoreAppStore> {
   final St appStore;
   final UIRoot Function(St store) root;
   final List<InheritedProvider<Dependency>> dependencies;
-  final UITheme<St> theme;
+  final UITheme theme;
 
   CoreAppConfig({
     required this.root,
@@ -41,7 +41,7 @@ class CoreAppConfig<St extends CoreAppStore> {
   });
 }
 
-class UITheme<St extends CoreAppStore> {
+class UITheme {
   final ThemeData Function(BuildContext context)? lightTheme;
   final ThemeData Function(BuildContext context)? darkTheme;
   final ThemeMode Function(BuildContext context)? themeMode;

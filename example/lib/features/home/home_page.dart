@@ -19,7 +19,7 @@ class HomePage extends StatelessWidget {
           child: Column(
             children: [
               AppStoreProvider<AppStore>(
-                builder: (context, store) {
+                builder: (context, store, _) {
                   print('build store counter');
                   return TextButton(
                     onPressed: store.increment,

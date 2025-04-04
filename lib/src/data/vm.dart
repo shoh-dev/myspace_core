@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:myspace_core/src/data/app_store.dart';
+import 'package:provider/provider.dart';
 
 abstract class Vm extends ChangeNotifier {
   bool isDisposed = false;
@@ -28,16 +29,19 @@ class VmProvider extends StatelessWidget {
     super.key,
     required this.vm,
     required this.builder,
+    this.child,
   });
 
   final Vm vm;
-  final Widget Function(BuildContext context) builder;
+  final Widget Function(BuildContext context, Widget? child) builder;
+  final Widget? child;
 
   @override
   Widget build(BuildContext context) {
     return ListenableBuilder(
       listenable: vm,
-      builder: (context, _) => builder(context),
+      builder: builder,
+      child: child,
     );
   }
 }
@@ -46,15 +50,18 @@ class AppStoreProvider<St extends CoreAppStore> extends StatelessWidget {
   const AppStoreProvider({
     super.key,
     required this.builder,
+    this.child,
   });
 
-  final Widget Function(BuildContext context, St store) builder;
+  final Widget Function(BuildContext context, St store, Widget? child) builder;
+  final Widget? child;
 
   @override
   Widget build(BuildContext context) {
-    return builder(
-      context,
-      context.watchAppStore<St>(),
+    log('AppStoreProvider build');
+    return Consumer<St>(
+      builder: builder,
+      child: child,
     );
   }
 }
