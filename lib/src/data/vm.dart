@@ -1,11 +1,14 @@
-import 'dart:developer';
+import 'dart:developer' as dev;
 
 import 'package:flutter/material.dart';
+import 'package:logging/logging.dart';
 import 'package:myspace_core/src/data/app_store.dart';
 import 'package:provider/provider.dart';
 
 abstract class Vm extends ChangeNotifier {
   bool isDisposed = false;
+
+  late final log = Logger(runtimeType.toString());
 
   Vm();
 
@@ -13,7 +16,7 @@ abstract class Vm extends ChangeNotifier {
   void dispose() {
     super.dispose();
     isDisposed = true;
-    log("Called dispose() for $runtimeType VM");
+    log.info("Called dispose() for $runtimeType VM");
   }
 
   int counter = 0;
@@ -58,7 +61,7 @@ class AppStoreProvider<St extends CoreAppStore> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log('AppStoreProvider build');
+    dev.log('AppStoreProvider build');
     return Consumer<St>(
       builder: builder,
       child: child,

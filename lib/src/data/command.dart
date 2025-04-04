@@ -29,6 +29,8 @@ abstract class Command<T> extends ChangeNotifier {
 
   bool _running = false;
 
+  int called = 0;
+
   /// True when the action is running.
   bool get isRunning => _running;
 
@@ -65,6 +67,7 @@ abstract class Command<T> extends ChangeNotifier {
       _result = await action();
     } finally {
       _running = false;
+      called += 1;
       notifyListeners();
     }
   }
