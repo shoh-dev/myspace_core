@@ -2,7 +2,8 @@ import 'dart:developer' as dev;
 
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
-import 'package:myspace_core/src/data/app_store.dart';
+import 'package:myspace_core/myspace_core.dart';
+import 'package:myspace_ui/myspace_ui.dart';
 import 'package:provider/provider.dart';
 
 abstract class Vm extends ChangeNotifier {
@@ -66,5 +67,53 @@ class AppStoreProvider<St extends CoreAppStore> extends StatelessWidget {
       builder: builder,
       child: child,
     );
+  }
+}
+
+class CommandWrapper extends StatelessWidget {
+  final Command command;
+
+  const CommandWrapper({
+    super.key,
+    required this.command,
+    required this.okBuilder,
+    this.errorBuilder,
+    this.child,
+  });
+
+  final Widget Function(BuildContext context, Widget? child) okBuilder;
+  final Widget Function(BuildContext context, ResultError error, Widget? child)?
+      errorBuilder;
+  final Widget? child;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListenableBuilder(
+        listenable: command,
+        child: child,
+        builder: (context, child) {
+          if (command.isRunning) {
+            return const LoadingDialog();
+          }
+
+          final result = command.result!;
+
+          switch (result) {
+            case ResultOk<void>():
+              return okBuilder(context, child);
+            case ResultError<void>():
+              if (errorBuilder != null) {
+                return errorBuilder!(context, result, child);
+              }
+              final retry = command is CommandNoParam
+                  ? (command as CommandNoParam).execute
+                  : null;
+              return ErrorDialog(
+                content: result.e.toString(),
+                actionText: retry != null ? 'Retry' : null,
+                actionCallback: retry,
+              );
+          }
+        });
   }
 }

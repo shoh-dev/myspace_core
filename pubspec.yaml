@@ -15,6 +15,8 @@ dependencies:
   # Shared
   myspace_ui:
     path: ../myspace_ui
+  myspace_design_system:
+    path: ../myspace_design_system
 
   # Etc
   intl: ^0.19.0

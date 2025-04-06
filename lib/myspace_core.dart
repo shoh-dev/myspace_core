@@ -6,3 +6,5 @@ export 'src/data/dependency.dart';
 export 'src/run_app.dart';
 
 export 'package:provider/provider.dart' show Provider, ChangeNotifierProvider;
+
+// export 'package:logging/logging.dart' show Logger;

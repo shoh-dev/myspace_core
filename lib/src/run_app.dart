@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myspace_core/src/data/app_store.dart';
 import 'package:myspace_core/src/data/dependency.dart';
+import 'package:myspace_design_system/myspace_design_system.dart';
 import 'package:myspace_ui/myspace_ui.dart';
 import 'package:provider/provider.dart';
 
@@ -19,8 +20,7 @@ Future<void> runMySpaceApp<St extends CoreAppStore>(
       ],
       child: UIApp(
         routerConfig: router,
-        lightTheme: theme.lightTheme,
-        darkTheme: theme.darkTheme,
+        theme: theme.theme,
         themeMode: theme.themeMode,
       ),
     ),
@@ -42,13 +42,11 @@ class CoreAppConfig<St extends CoreAppStore> {
 }
 
 class UITheme {
-  final ThemeData Function(BuildContext context)? lightTheme;
-  final ThemeData Function(BuildContext context)? darkTheme;
+  final AppTheme Function(BuildContext context)? theme;
   final ThemeMode Function(BuildContext context)? themeMode;
 
   const UITheme({
-    this.lightTheme,
-    this.darkTheme,
+    this.theme,
     this.themeMode,
   });
 }

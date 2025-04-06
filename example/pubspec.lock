@@ -223,6 +223,13 @@ packages:
       relative: true
     source: path
     version: "0.0.1"
+  myspace_design_system:
+    dependency: "direct overridden"
+    description:
+      path: "../../myspace_design_system"
+      relative: true
+    source: path
+    version: "0.0.1"
   myspace_ui:
     dependency: "direct main"
     description:

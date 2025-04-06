@@ -13,7 +13,7 @@ void main() {
     appStore: AppStore(),
     theme: UITheme(
       themeMode: (context) => context.watchDependency<ThemeDep>().themeMode,
-      darkTheme: (context) => ThemeData.dark(),
+      theme: (context) => AppTheme(borderRadius: 6),
     ),
     root:
         (store) => UIRoot(
