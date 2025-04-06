@@ -93,7 +93,9 @@ class CommandWrapper extends StatelessWidget {
         child: child,
         builder: (context, child) {
           if (command.isRunning) {
-            return const LoadingDialog();
+            return const Center(
+              child: CircularProgressIndicator.adaptive(),
+            );
           }
 
           final result = command.result!;
