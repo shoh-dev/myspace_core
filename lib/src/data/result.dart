@@ -16,7 +16,4 @@ sealed class Result<T> with _$Result<T> {
 extension ResultHelper<T> on Result<T> {
   bool get isOk => this is ResultOk;
   bool get isError => this is ResultError;
-
-  ResultOk<T> get asOk => this as ResultOk<T>;
-  ResultError get asError => this as ResultError;
 }
