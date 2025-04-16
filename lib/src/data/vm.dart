@@ -79,12 +79,14 @@ class CommandWrapper extends StatelessWidget {
     required this.okBuilder,
     this.errorBuilder,
     this.child,
+    this.onRetry,
   });
 
   final Widget Function(BuildContext context, Widget? child) okBuilder;
   final Widget Function(BuildContext context, ResultError error, Widget? child)?
       errorBuilder;
   final Widget? child;
+  final VoidCallback? onRetry;
 
   @override
   Widget build(BuildContext context) {
