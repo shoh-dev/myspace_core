@@ -28,41 +28,58 @@ abstract class Vm extends ChangeNotifier {
   }
 }
 
-class VmProvider extends StatelessWidget {
-  const VmProvider({
+class VmReader<VM extends Vm> extends StatelessWidget {
+  const VmReader({
     super.key,
-    required this.vm,
+    required this.builder,
+  });
+
+  final Widget Function(BuildContext context, VM vm) builder;
+
+  @override
+  Widget build(BuildContext context) {
+    return builder(context, context.read<VM>());
+  }
+}
+
+class VmWatcher<VM extends Vm> extends StatelessWidget {
+  const VmWatcher({
+    super.key,
     required this.builder,
     this.child,
   });
 
-  final Vm vm;
-  final Widget Function(BuildContext context, Widget? child) builder;
   final Widget? child;
+  final Widget Function(BuildContext context, VM vm, Widget? child) builder;
 
   @override
   Widget build(BuildContext context) {
-    return ListenableBuilder(
-      listenable: vm,
+    return Consumer<VM>(
       builder: builder,
       child: child,
     );
   }
 }
 
-class VmProvider2<VM extends Vm> extends StatelessWidget {
-  const VmProvider2({
+class VmSelector<FROMVM extends Vm, TOVALUE> extends StatelessWidget {
+  const VmSelector({
     super.key,
     required this.builder,
+    required this.selector,
     this.child,
   });
 
-  final Widget Function(BuildContext context, Widget? child, VM vm) builder;
   final Widget? child;
+  final TOVALUE Function(BuildContext context, FROMVM vm) selector;
+  final ValueWidgetBuilder<TOVALUE> builder;
 
   @override
   Widget build(BuildContext context) {
-    return builder(context, child, context.watch<VM>());
+    return Selector<FROMVM, TOVALUE>(
+      selector: selector,
+      builder: builder,
+      child: child,
+    );
   }
 }
 
@@ -80,6 +97,29 @@ class AppStoreProvider<St extends CoreAppStore> extends StatelessWidget {
   Widget build(BuildContext context) {
     dev.log('AppStoreProvider build');
     return Consumer<St>(
+      builder: builder,
+      child: child,
+    );
+  }
+}
+
+class AppStoreSelector<APPSTORE extends CoreAppStore, TOVALUE>
+    extends StatelessWidget {
+  const AppStoreSelector({
+    super.key,
+    required this.builder,
+    required this.selector,
+    this.child,
+  });
+
+  final Widget? child;
+  final TOVALUE Function(BuildContext context, APPSTORE appStore) selector;
+  final ValueWidgetBuilder<TOVALUE> builder;
+
+  @override
+  Widget build(BuildContext context) {
+    return Selector<APPSTORE, TOVALUE>(
+      selector: selector,
       builder: builder,
       child: child,
     );

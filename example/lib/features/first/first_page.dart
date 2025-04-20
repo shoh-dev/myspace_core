@@ -23,8 +23,8 @@ class FirstPage extends StatelessWidget {
     return Center(
       child: Column(
         children: [
-          VmProvider2<FirstLayoutVm>(
-            builder: (context, _, vm) {
+          VmWatcher<FirstLayoutVm>(
+            builder: (context, vm, child) {
               print(vm.counter);
               return TextButton(
                 onPressed: vm.incrementCounter,

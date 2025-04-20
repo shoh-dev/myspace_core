@@ -36,9 +36,8 @@ class _SplashPageState extends State<SplashPage> {
             },
             child: Text("Refresh page"),
           ),
-          VmProvider(
-            vm: widget.vm,
-            builder: (context, _) {
+          VmWatcher(
+            builder: (context, _, vm) {
               return TextButton(
                 onPressed: () {
                   widget.vm.incrementCounter1();
