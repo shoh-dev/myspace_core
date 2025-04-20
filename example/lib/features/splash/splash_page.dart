@@ -16,12 +16,12 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
-  @override
-  void dispose() {
-    // log('Dispose SplashPage');
-    widget.vm.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   // log('Dispose SplashPage');
+  //   widget.vm.dispose();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -75,6 +75,16 @@ class _SplashPageState extends State<SplashPage> {
               return TextButton(
                 onPressed: () => context.goNamed('home'),
                 child: Text('Go to Homepage'),
+              );
+            },
+          ),
+
+          Builder(
+            builder: (context) {
+              // print('build go to homepage button');
+              return TextButton(
+                onPressed: () => context.goNamed('first'),
+                child: Text('Go to Firstpage'),
               );
             },
           ),
@@ -167,7 +177,7 @@ class _SplashPageState extends State<SplashPage> {
             onPressed: () {
               // final authClient = context.readDependency<AuthApiClient>();
               // authClient.login();
-              final authClient = context.readDependency<AuthApiClient>();
+              final authClient = context.read<AuthApiClient>();
               authClient.login();
             },
             child: Text('Login'),
@@ -175,7 +185,7 @@ class _SplashPageState extends State<SplashPage> {
 
           TextButton(
             onPressed: () {
-              context.readDependency<ThemeDep>().toggleThemeMode();
+              context.read<ThemeDep>().toggleThemeMode();
             },
             child: Text('Toogle theme'),
           ),

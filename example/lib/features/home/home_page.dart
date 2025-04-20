@@ -1,5 +1,6 @@
 import 'package:example/core/store.dart';
 import 'package:example/features/home/home_page_vm.dart';
+import 'package:example/main.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:myspace_core/myspace_core.dart';
@@ -20,11 +21,16 @@ class HomePage extends StatelessWidget {
             children: [
               AppStoreProvider<AppStore>(
                 builder: (context, store, _) {
-                  print('build store counter');
+                  // print('build store counter');
                   return TextButton(
                     onPressed: store.increment,
                     child: Text(store.counter.toString()),
                   );
+                },
+              ),
+              AppStoreProvider<AppStore>(
+                builder: (context, store, _) {
+                  return TextButton(onPressed: () {}, child: Text("AppPlugin"));
                 },
               ),
               TextButton(

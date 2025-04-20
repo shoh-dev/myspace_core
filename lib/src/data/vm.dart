@@ -50,6 +50,22 @@ class VmProvider extends StatelessWidget {
   }
 }
 
+class VmProvider2<VM extends Vm> extends StatelessWidget {
+  const VmProvider2({
+    super.key,
+    required this.builder,
+    this.child,
+  });
+
+  final Widget Function(BuildContext context, Widget? child, VM vm) builder;
+  final Widget? child;
+
+  @override
+  Widget build(BuildContext context) {
+    return builder(context, child, context.watch<VM>());
+  }
+}
+
 class AppStoreProvider<St extends CoreAppStore> extends StatelessWidget {
   const AppStoreProvider({
     super.key,

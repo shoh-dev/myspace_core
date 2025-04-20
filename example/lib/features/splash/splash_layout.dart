@@ -9,17 +9,21 @@ import 'splash_page_vm.dart';
 class SplashPageLayout extends StatelessWidget {
   static final layout = UILayout(
     layoutBuilder: (context, state, shell) => SplashPageLayout(shell: shell),
-    pages: [
-      [
-        UIPage(
-          name: 'splash',
-          path: "/",
-          vm: (context, state) => SplashPageVm(),
-          builder: (context, state, pageVm) {
-            return SplashPage(pageVm as SplashPageVm);
-          },
-        ),
-      ],
+    branches: [
+      UIBranch(
+        pages: [
+          UIPage(
+            name: 'splash',
+            path: "/",
+            builder: (context, state) {
+              return ChangeNotifierProvider(
+                create: (context) => SplashPageVm(),
+                builder: (context, child) => SplashPage(context.read()),
+              );
+            },
+          ),
+        ],
+      ),
     ],
   );
 
@@ -38,5 +42,3 @@ class SplashPageLayout extends StatelessWidget {
     );
   }
 }
-
-class SplashLayoutVm extends Vm {}

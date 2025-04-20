@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:example/core/store.dart';
+import 'package:example/features/first/first_layout.dart';
 import 'package:example/features/home/home_layout.dart';
 import 'package:example/features/splash/splash_layout.dart';
 import 'package:flutter/material.dart';
@@ -12,18 +13,23 @@ void main() {
   final appConfig = CoreAppConfig<AppStore>(
     appStore: AppStore(),
     theme: UITheme(
-      themeMode: (context) => context.watchDependency<ThemeDep>().themeMode,
+      themeMode: (context) => context.watch<ThemeDep>().themeMode,
       theme: (context) => AppTheme(borderRadius: 6),
     ),
     root:
         (store) => UIRoot(
           refreshListenable: store,
-          layouts: [SplashPageLayout.layout, HomePageLayout.layout],
+          layouts: [
+            SplashPageLayout.layout,
+            HomePageLayout.layout,
+            FirstLayout.layout,
+          ],
         ),
+
     dependencies: [
       Provider<ApiClient>(create: (context) => ApiClient()),
       Provider<AuthApiClient>(
-        create: (context) => AuthApiClient(context.readDependency()),
+        create: (context) => AuthApiClient(context.read()),
       ),
       ChangeNotifierProvider<ThemeDep>(create: (context) => ThemeDep()),
     ],
@@ -62,5 +68,11 @@ class ThemeDep extends DependencyChangeNotifier {
       themeMode = ThemeMode.light;
     }
     notifyListeners();
+  }
+}
+
+class AppPlugin extends Dependency {
+  void test() {
+    log('Testing');
   }
 }
