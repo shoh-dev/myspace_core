@@ -18,7 +18,7 @@ class SplashPageLayout extends StatelessWidget {
             builder: (context, state) {
               return ChangeNotifierProvider(
                 create: (context) => SplashPageVm(),
-                builder: (context, child) => SplashPage(context.read()),
+                builder: (context, child) => const SplashPage(),
               );
             },
           ),

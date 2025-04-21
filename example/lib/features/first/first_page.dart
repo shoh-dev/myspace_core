@@ -7,25 +7,18 @@ class FirstPage extends StatelessWidget {
   static final page = UIPage(
     name: 'first',
     path: "/first",
-    builder: (context, state) {
-      return FirstPage(context.read());
-    },
+    builder: (context, state) => const FirstPage(),
   );
 
-  const FirstPage(this.vm, {super.key});
-
-  final FirstLayoutVm vm;
+  const FirstPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    print('Building FirstPage');
-
     return Center(
       child: Column(
         children: [
           VmWatcher<FirstLayoutVm>(
             builder: (context, vm, child) {
-              print(vm.counter);
               return TextButton(
                 onPressed: vm.incrementCounter,
                 child: Text(vm.counter.toString()),

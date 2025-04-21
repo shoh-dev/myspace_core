@@ -13,7 +13,9 @@ void main() {
   final appConfig = CoreAppConfig<AppStore>(
     appStore: AppStore(),
     theme: UITheme(
-      themeMode: (context) => context.watch<ThemeDep>().themeMode,
+      themeMode:
+          (context) =>
+              context.select<ThemeDep, ThemeMode>((value) => value.themeMode),
       theme: (context) => AppTheme(borderRadius: 6),
     ),
     root:

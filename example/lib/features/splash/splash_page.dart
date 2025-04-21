@@ -7,22 +7,13 @@ import 'package:myspace_core/myspace_core.dart';
 import 'package:myspace_ui/myspace_ui.dart';
 
 class SplashPage extends StatefulWidget {
-  const SplashPage(this.vm, {super.key});
-
-  final SplashPageVm vm;
+  const SplashPage({super.key});
 
   @override
   State<SplashPage> createState() => _SplashPageState();
 }
 
 class _SplashPageState extends State<SplashPage> {
-  // @override
-  // void dispose() {
-  //   // log('Dispose SplashPage');
-  //   widget.vm.dispose();
-  //   super.dispose();
-  // }
-
   @override
   Widget build(BuildContext context) {
     print('Building SplashPage');
@@ -36,13 +27,13 @@ class _SplashPageState extends State<SplashPage> {
             },
             child: Text("Refresh page"),
           ),
-          VmWatcher(
-            builder: (context, _, vm) {
+          VmWatcher<SplashPageVm>(
+            builder: (context, vm, child) {
               return TextButton(
                 onPressed: () {
-                  widget.vm.incrementCounter1();
+                  vm.incrementCounter1();
                 },
-                child: Text(widget.vm.counter1.toString()),
+                child: Text(vm.counter1.toString()),
               );
             },
           ),
@@ -170,23 +161,6 @@ class _SplashPageState extends State<SplashPage> {
                 child: Text('Show Prompt'),
               );
             },
-          ),
-
-          TextButton(
-            onPressed: () {
-              // final authClient = context.readDependency<AuthApiClient>();
-              // authClient.login();
-              final authClient = context.read<AuthApiClient>();
-              authClient.login();
-            },
-            child: Text('Login'),
-          ),
-
-          TextButton(
-            onPressed: () {
-              context.read<ThemeDep>().toggleThemeMode();
-            },
-            child: Text('Toogle theme'),
           ),
         ],
       ),

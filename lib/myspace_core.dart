@@ -7,9 +7,4 @@ export 'src/data/dependency.dart';
 export 'src/data/service_locator.dart';
 
 export 'package:provider/provider.dart'
-    show
-        Provider,
-        ChangeNotifierProvider,
-        ReadContext,
-        WatchContext,
-        SelectContext;
+    show Provider, ChangeNotifierProvider, ReadContext, SelectContext;
