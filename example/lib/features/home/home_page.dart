@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:example/core/store.dart';
 import 'package:example/features/home/home_page_vm.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +11,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('Building HomePage');
+    log('Building HomePage');
     return VmWatcher<HomePageVm>(
       builder: (context, vm, child) {
         return Center(

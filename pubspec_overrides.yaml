@@ -1,6 +1,4 @@
-# melos_managed_dependency_overrides: myspace_ui,myspace_design_system
+# melos_managed_dependency_overrides: myspace_ui
 dependency_overrides:
   myspace_ui:
     path: ../myspace_ui
-  myspace_design_system:
-    path: ../myspace_design_system

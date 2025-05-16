@@ -1,6 +1,7 @@
+import 'dart:developer';
+
 import 'package:example/core/store.dart';
 import 'package:example/features/splash/splash_page_vm.dart';
-import 'package:example/main.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:myspace_core/myspace_core.dart';
@@ -16,7 +17,7 @@ class SplashPage extends StatefulWidget {
 class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
-    print('Building SplashPage');
+    log('Building SplashPage');
 
     return Center(
       child: Column(
