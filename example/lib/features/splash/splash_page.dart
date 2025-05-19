@@ -50,7 +50,7 @@ class _SplashPageState extends State<SplashPage> {
           //     );
           //   },
           // ),
-          AppStoreProvider<AppStore>(
+          AppStoreWatcher<AppStore>(
             builder: (context, store, _) {
               // print('build store counter');
               return TextButton(

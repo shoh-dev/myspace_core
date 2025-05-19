@@ -52,10 +52,10 @@ abstract class Command<T> extends ChangeNotifier {
   }
 
   /// Internal execute implementation
-  Future<void> _execute(CommandActionNoParam<T> action) async {
+  Future<Result<T>?> _execute(CommandActionNoParam<T> action) async {
     // Ensure the action can't launch multiple times.
     // e.g. avoid multiple taps on button
-    if (_running) return;
+    if (_running) return null;
 
     // Notify listeners.
     // e.g. button shows loading state
@@ -70,6 +70,7 @@ abstract class Command<T> extends ChangeNotifier {
       called += 1;
       notifyListeners();
     }
+    return _result;
   }
 }
 
@@ -81,8 +82,8 @@ class CommandNoParam<T> extends Command<T> {
   final CommandActionNoParam<T> _action;
 
   /// Executes the action.
-  Future<void> execute() async {
-    await _execute(_action);
+  Future<Result<T>?> execute() async {
+    return await _execute(_action);
   }
 }
 
@@ -94,7 +95,7 @@ class CommandParam<T, A> extends Command<T> {
   final CommandActionParam<T, A> _action;
 
   /// Executes the action with the argument.
-  Future<void> execute(A argument) async {
-    await _execute(() => _action(argument));
+  Future<Result<T>?> execute(A argument) async {
+    return await _execute(() => _action(argument));
   }
 }

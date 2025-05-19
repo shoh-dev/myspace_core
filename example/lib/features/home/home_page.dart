@@ -17,7 +17,7 @@ class HomePage extends StatelessWidget {
         return Center(
           child: Column(
             children: [
-              AppStoreProvider<AppStore>(
+              AppStoreWatcher<AppStore>(
                 builder: (context, store, _) {
                   // print('build store counter');
                   return TextButton(
@@ -26,7 +26,7 @@ class HomePage extends StatelessWidget {
                   );
                 },
               ),
-              AppStoreProvider<AppStore>(
+              AppStoreWatcher<AppStore>(
                 builder: (context, store, _) {
                   return TextButton(onPressed: () {}, child: Text("AppPlugin"));
                 },

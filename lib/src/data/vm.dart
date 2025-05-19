@@ -29,10 +29,7 @@ abstract class Vm extends ChangeNotifier {
 }
 
 class VmReader<VM extends Vm> extends StatelessWidget {
-  const VmReader({
-    super.key,
-    required this.builder,
-  });
+  const VmReader({super.key, required this.builder});
 
   final Widget Function(BuildContext context, VM vm) builder;
 
@@ -43,21 +40,14 @@ class VmReader<VM extends Vm> extends StatelessWidget {
 }
 
 class VmWatcher<VM extends Vm> extends StatelessWidget {
-  const VmWatcher({
-    super.key,
-    required this.builder,
-    this.child,
-  });
+  const VmWatcher({super.key, required this.builder, this.child});
 
   final Widget? child;
   final Widget Function(BuildContext context, VM vm, Widget? child) builder;
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<VM>(
-      builder: builder,
-      child: child,
-    );
+    return Consumer<VM>(builder: builder, child: child);
   }
 }
 
@@ -108,30 +98,19 @@ class DependencySelector<FROMDEP extends Dependency, TOVALUE>
 
 class DependencyWatcher<DEP extends DependencyChangeNotifier>
     extends StatelessWidget {
-  const DependencyWatcher({
-    super.key,
-    required this.builder,
-    this.child,
-  });
+  const DependencyWatcher({super.key, required this.builder, this.child});
 
   final Widget? child;
   final Widget Function(BuildContext context, DEP dep, Widget? child) builder;
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<DEP>(
-      builder: builder,
-      child: child,
-    );
+    return Consumer<DEP>(builder: builder, child: child);
   }
 }
 
-class AppStoreProvider<St extends CoreAppStore> extends StatelessWidget {
-  const AppStoreProvider({
-    super.key,
-    required this.builder,
-    this.child,
-  });
+class AppStoreWatcher<St extends CoreAppStore> extends StatelessWidget {
+  const AppStoreWatcher({super.key, required this.builder, this.child});
 
   final Widget Function(BuildContext context, St store, Widget? child) builder;
   final Widget? child;
@@ -139,10 +118,7 @@ class AppStoreProvider<St extends CoreAppStore> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     dev.log('AppStoreProvider build');
-    return Consumer<St>(
-      builder: builder,
-      child: child,
-    );
+    return Consumer<St>(builder: builder, child: child);
   }
 }
 
@@ -175,48 +151,47 @@ class CommandWrapper extends StatelessWidget {
   const CommandWrapper({
     super.key,
     required this.command,
-    required this.okBuilder,
-    this.errorBuilder,
+    required this.builder,
     this.child,
     this.onRetry,
   });
 
-  final Widget Function(BuildContext context, Widget? child) okBuilder;
-  final Widget Function(BuildContext context, ResultError error, Widget? child)?
-      errorBuilder;
+  final Widget Function(BuildContext context, Widget? child) builder;
+
   final Widget? child;
   final VoidCallback? onRetry;
 
   @override
   Widget build(BuildContext context) {
     return ListenableBuilder(
-        listenable: command,
-        child: child,
-        builder: (context, child) {
-          if (command.isRunning) {
-            return const Center(
-              child: CircularProgressIndicator.adaptive(),
-            );
-          }
+      listenable: command,
+      builder: builder,
+      child: child,
+      // builder: (context, child) {
+      //   if (command.isRunning) {
+      //     return const Center(child: CircularProgressIndicator.adaptive());
+      //   }
 
-          final result = command.result!;
+      //   final result = command.result ?? const ResultOk<void>(null);
 
-          switch (result) {
-            case ResultOk<void>():
-              return okBuilder(context, child);
-            case ResultError<void>():
-              if (errorBuilder != null) {
-                return errorBuilder!(context, result, child);
-              }
-              final retry = command is CommandNoParam
-                  ? (command as CommandNoParam).execute
-                  : null;
-              return ErrorDialog(
-                content: result.e.toString(),
-                actionText: retry != null ? 'Retry' : null,
-                actionCallback: retry,
-              );
-          }
-        });
+      //   switch (result) {
+      //     case ResultOk<void>():
+      //       return okBuilder(context, child);
+      //     case ResultError<void>():
+      //       if (errorBuilder != null) {
+      //         return errorBuilder!(context, result, child);
+      //       }
+      //       final retry =
+      //           command is CommandNoParam
+      //               ? (command as CommandNoParam).execute
+      //               : null;
+      //       return ErrorDialog(
+      //         content: result.e.toString(),
+      //         actionText: retry != null ? 'Retry' : null,
+      //         actionCallback: retry,
+      //       );
+      //   }
+      // },
+    );
   }
 }
