@@ -3,7 +3,6 @@ import 'dart:developer' as dev;
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 import 'package:myspace_core/myspace_core.dart';
-import 'package:myspace_ui/myspace_ui.dart';
 import 'package:provider/provider.dart';
 
 abstract class Vm extends ChangeNotifier {
@@ -17,14 +16,15 @@ abstract class Vm extends ChangeNotifier {
   void dispose() {
     super.dispose();
     isDisposed = true;
-    log.info("Called dispose() for $runtimeType VM");
+    dev.log("dispose() for $runtimeType VM");
   }
 
-  int counter = 0;
-
-  void incrementCounter() {
-    counter += 1;
-    notifyListeners();
+  @override
+  void notifyListeners() {
+    if (!isDisposed) {
+      super.notifyListeners();
+    }
+    dev.log("notifyListeners() for $runtimeType VM");
   }
 }
 
@@ -66,6 +66,7 @@ class VmSelector<FROMVM extends Vm, TOVALUE> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Selector<FROMVM, TOVALUE>(
+      shouldRebuild: (previous, next) => previous != next,
       selector: selector,
       builder: builder,
       child: child,
@@ -145,8 +146,8 @@ class AppStoreSelector<APPSTORE extends CoreAppStore, TOVALUE>
   }
 }
 
-class CommandWrapper extends StatelessWidget {
-  final Command command;
+class CommandWrapper<T> extends StatelessWidget {
+  final Command<T> command;
 
   const CommandWrapper({
     super.key,
@@ -156,7 +157,8 @@ class CommandWrapper extends StatelessWidget {
     this.onRetry,
   });
 
-  final Widget Function(BuildContext context, Widget? child) builder;
+  final Widget Function(BuildContext context, Command<T> command, Widget? child)
+  builder;
 
   final Widget? child;
   final VoidCallback? onRetry;
@@ -165,7 +167,7 @@ class CommandWrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListenableBuilder(
       listenable: command,
-      builder: builder,
+      builder: (context, child) => builder(context, command, child),
       child: child,
       // builder: (context, child) {
       //   if (command.isRunning) {

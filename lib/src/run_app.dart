@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:myspace_core/src/data/app_store.dart';
 import 'package:myspace_core/src/data/dependency.dart';
+import 'package:myspace_core/src/routing/root.dart';
 import 'package:myspace_ui/myspace_ui.dart';
 import 'package:provider/provider.dart';
 
@@ -11,10 +12,11 @@ Future<void> runMySpaceApp<St extends CoreAppStore>(
 ) async {
   final appStore = config.appStore;
   final dependencies = config.dependencies;
-  final root = config.root(appStore);
+  final root = config.root;
   final theme = config.theme;
   final router = root.toRouter();
   final builder = config.builder;
+  final localizationsDelegates = config.localizationsDelegates;
 
   runApp(
     MultiProvider(
@@ -27,6 +29,7 @@ Future<void> runMySpaceApp<St extends CoreAppStore>(
         theme: theme.theme,
         themeMode: theme.themeMode,
         builder: builder,
+        localizationsDelegates: localizationsDelegates,
       ),
     ),
   );
@@ -34,10 +37,11 @@ Future<void> runMySpaceApp<St extends CoreAppStore>(
 
 class CoreAppConfig<St extends CoreAppStore> {
   final St appStore;
-  final UIRoot Function(St store) root;
+  final UIRoot root;
   final List<InheritedProvider<Dependency>> dependencies;
   final UITheme theme;
   final Widget Function(BuildContext context, Widget? child)? builder;
+  final Iterable<LocalizationsDelegate<dynamic>>? localizationsDelegates;
 
   CoreAppConfig({
     required this.root,
@@ -45,6 +49,7 @@ class CoreAppConfig<St extends CoreAppStore> {
     this.dependencies = const [],
     this.theme = const UITheme(),
     this.builder,
+    this.localizationsDelegates,
   });
 }
 

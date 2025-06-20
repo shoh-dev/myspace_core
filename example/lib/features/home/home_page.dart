@@ -3,8 +3,8 @@ import 'dart:developer';
 import 'package:example/core/store.dart';
 import 'package:example/features/home/home_page_vm.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:myspace_core/myspace_core.dart';
+import 'package:myspace_ui/myspace_ui.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -32,7 +32,7 @@ class HomePage extends StatelessWidget {
                 },
               ),
               TextButton(
-                onPressed: () => context.goNamed('splash'),
+                onPressed: () => context.go('/'),
                 child: Text('Go to Splash'),
               ),
             ],

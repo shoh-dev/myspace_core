@@ -45,6 +45,11 @@ abstract class Command<T> extends ChangeNotifier {
   /// Get last action result
   Result<T>? get result => _result;
 
+  T? get value => result?.fold((value) => value, (error) => null);
+
+  /// Get error message
+  String get errorMessage => _result?.fold((p0) => '', (p0) => p0) ?? '';
+
   /// Clear last action result
   void clearResult() {
     _result = null;
@@ -65,6 +70,8 @@ abstract class Command<T> extends ChangeNotifier {
 
     try {
       _result = await action();
+    } catch (e) {
+      _result = Result.error(e);
     } finally {
       _running = false;
       called += 1;
@@ -82,6 +89,8 @@ class CommandNoParam<T> extends Command<T> {
   final CommandActionNoParam<T> _action;
 
   /// Executes the action.
+  ///
+  /// If returns null this means it is still running
   Future<Result<T>?> execute() async {
     return await _execute(_action);
   }
@@ -95,6 +104,8 @@ class CommandParam<T, A> extends Command<T> {
   final CommandActionParam<T, A> _action;
 
   /// Executes the action with the argument.
+  ///
+  /// If returns null this means it is still running
   Future<Result<T>?> execute(A argument) async {
     return await _execute(() => _action(argument));
   }

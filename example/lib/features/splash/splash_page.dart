@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:example/core/store.dart';
 import 'package:example/features/splash/splash_page_vm.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:myspace_core/myspace_core.dart';
 import 'package:myspace_ui/myspace_ui.dart';
 
@@ -24,7 +23,7 @@ class _SplashPageState extends State<SplashPage> {
         children: [
           TextButton(
             onPressed: () {
-              GoRouter.of(context).refresh();
+              // GoRouter.of(context).refresh();
             },
             child: Text("Refresh page"),
           ),
@@ -64,7 +63,7 @@ class _SplashPageState extends State<SplashPage> {
             builder: (context) {
               // print('build go to homepage button');
               return TextButton(
-                onPressed: () => context.goNamed('home'),
+                onPressed: () => context.go('/home'),
                 child: Text('Go to Homepage'),
               );
             },
@@ -74,8 +73,8 @@ class _SplashPageState extends State<SplashPage> {
             builder: (context) {
               // print('build go to homepage button');
               return TextButton(
-                onPressed: () => context.goNamed('first'),
-                child: Text('Go to Firstpage'),
+                onPressed: () => context.go('/page1'),
+                child: Text('Go to First Page'),
               );
             },
           ),
