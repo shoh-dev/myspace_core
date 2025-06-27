@@ -10,5 +10,5 @@ export 'src/data/result.dart';
 export 'src/data/vm.dart';
 export 'src/data/app_store.dart';
 export 'src/data/dependency.dart';
-export 'src/data/service_locator.dart';
 export 'src/routing/routing.dart';
+export 'src/ui/ui.dart';

@@ -27,13 +27,13 @@ void main() {
           vm: (context, state) => SplashPageVm(),
           builder: (context, state) => const SplashPage(),
         ),
-        UIRoute<HomePageVm>.page(
-          path: "/home",
-          vm: (context, state) => HomePageVm(),
-          builder: (context, state) => HomePage(),
-        ),
+        // UIRoute<HomePageVm>.page(
+        //   path: "/home",
+        //   vm: (context, state) => HomePageVm(),
+        //   builder: (context, state) => HomePage(),
+        // ),
 
-        firstLayout,
+        // firstLayout,
       ],
     ),
 

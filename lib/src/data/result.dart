@@ -1,16 +1,27 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+sealed class Result<T> {
+  const Result();
 
-part 'result.freezed.dart';
+  factory Result.ok(T value) {
+    return ResultOk<T>(value);
+  }
 
-@freezed
-sealed class Result<T> with _$Result<T> {
-  const factory Result.ok(T value) = ResultOk;
+  factory Result.error(dynamic e, {String? code, StackTrace? stackTrace}) {
+    return ResultError<T>(e, code: code, stackTrace: stackTrace);
+  }
+}
 
-  const factory Result.error(
-    dynamic e, {
-    String? code,
-    StackTrace? stackTrace,
-  }) = ResultError;
+class ResultOk<T> extends Result<T> {
+  final T value;
+
+  const ResultOk(this.value);
+}
+
+class ResultError<T> extends Result<T> {
+  final dynamic e;
+  final String? code;
+  final StackTrace? stackTrace;
+
+  const ResultError(this.e, {this.code, this.stackTrace});
 }
 
 extension ResultErrorHelper<T> on ResultError<T> {

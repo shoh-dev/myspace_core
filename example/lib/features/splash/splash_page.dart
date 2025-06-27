@@ -6,164 +6,160 @@ import 'package:flutter/material.dart';
 import 'package:myspace_core/myspace_core.dart';
 import 'package:myspace_ui/myspace_ui.dart';
 
-class SplashPage extends StatefulWidget {
+class SplashPage extends StatelessWidget {
   const SplashPage({super.key});
 
-  @override
-  State<SplashPage> createState() => _SplashPageState();
-}
-
-class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     log('Building SplashPage');
 
-    return Center(
-      child: Column(
-        children: [
-          TextButton(
-            onPressed: () {
-              // GoRouter.of(context).refresh();
-            },
-            child: Text("Refresh page"),
-          ),
-          VmWatcher<SplashPageVm>(
-            builder: (context, vm, child) {
-              return TextButton(
+    return VmSelector<SplashPageVm, int>(
+      selector: (context, vm) => vm.state.counter2,
+      builder: (context, counter2, _) {
+        log('Building SplashPage with counter2: $counter2');
+        return Center(
+          child: Column(
+            children: [
+              TextButton(
                 onPressed: () {
-                  vm.incrementCounter1();
+                  // GoRouter.of(context).refresh();
                 },
-                child: Text(vm.counter1.toString()),
-              );
-            },
-          ),
-
-          // VmProvider(
-          //   vm: widget.vm,
-          //   builder: (context) {
-          //     return TextButton(
-          //       onPressed: () {
-          //         widget.vm.incrementCounter1();
-          //       },
-          //       child: Text(widget.vm.storeCounter.toString()),
-          //     );
-          //   },
-          // ),
-          AppStoreWatcher<AppStore>(
-            builder: (context, store, _) {
-              // print('build store counter');
-              return TextButton(
-                onPressed: store.increment,
-                child: Text("Store: ${store.counter}"),
-              );
-            },
-          ),
-
-          Builder(
-            builder: (context) {
-              // print('build go to homepage button');
-              return TextButton(
-                onPressed: () => context.go('/home'),
-                child: Text('Go to Homepage'),
-              );
-            },
-          ),
-
-          Builder(
-            builder: (context) {
-              // print('build go to homepage button');
-              return TextButton(
-                onPressed: () => context.go('/page1'),
-                child: Text('Go to First Page'),
-              );
-            },
-          ),
-
-          Builder(
-            builder: (context) {
-              // print('build show error button');
-              return TextButton(
-                onPressed: () => ErrorDialog.show('Something went wrong!'),
-                // onPressed:
-                //     () => showDialog(
-                //       context: context,
-                //       builder: (context) {
-                //         return ErrorDialog(
-                //           content: 'Something went wrong!',
-                //           onClose: () {
-                //             Navigator.pop(context);
-                //           },
-                //         );
-                //       },
-                //     ),
-                child: Text('Show Error'),
-              );
-            },
-          ),
-
-          Builder(
-            builder: (context) {
-              // print('build show loading button');
-              return TextButton(
-                onPressed: () {
-                  final cancel = LoadingDialog.show();
-                  Future.delayed(Duration(seconds: 3), cancel);
-                },
-                child: Text('Show Loading'),
-              );
-            },
-          ),
-          Builder(
-            builder: (context) {
-              // print('build show info button');
-              return TextButton(
-                onPressed: () => InfoDialog.show('Archive only!'),
-                child: Text('Show Info'),
-              );
-            },
-          ),
-          Builder(
-            builder: (context) {
-              // print('build show success button');
-              return TextButton(
-                onPressed: () => SuccessDialog.show('Deleted correctly!'),
-                child: Text('Show Success'),
-              );
-            },
-          ),
-          Builder(
-            builder: (context) {
-              // print('build show prompt button');
-              return TextButton(
-                onPressed: () {
-                  PromptDialog.show(
-                    'Do you want to delete?',
-                    onLeftClick: (close) {
-                      close();
+                child: Text("Refresh page"),
+              ),
+              VmWatcher<SplashPageVm>(
+                builder: (context, vm, child) {
+                  return TextButton(
+                    onPressed: () async {
+                      final event = RandomNumberEvent();
+                      vm.addEvent(event);
+                      final result = await event.completer.future;
+                      print(result);
                     },
-                    onRightClick: (close) {
-                      close();
-                    },
+                    child: Text(vm.state.counter.toString()),
                   );
                 },
-                // () {
-                //   showDialog(
-                //     context: context,
-                //     builder: (context) {
-                //       return PromptDialog(
-                //         content: 'Do you want to delete?',
-                //         onLeftClick: () {},
-                //         onRightClick: () {},
-                //       );
-                //     },
-                //   );
-                // },
-                child: Text('Show Prompt'),
-              );
-            },
+              ),
+
+              // VmProvider(
+              //   vm: widget.vm,
+              //   builder: (context) {
+              //     return TextButton(
+              //       onPressed: () {
+              //         widget.vm.incrementCounter1();
+              //       },
+              //       child: Text(widget.vm.storeCounter.toString()),
+              //     );
+              //   },
+              // ),
+              AppStoreWatcher<AppStore>(
+                builder: (context, store, _) {
+                  // print('build store counter');
+                  return TextButton(
+                    onPressed: store.increment,
+                    child: Text("Store: ${store.counter}"),
+                  );
+                },
+              ),
+
+              Builder(
+                builder: (context) {
+                  // print('build go to homepage button');
+                  return TextButton(
+                    onPressed: () => context.go('/home'),
+                    child: Text('Go to Homepage'),
+                  );
+                },
+              ),
+
+              Builder(
+                builder: (context) {
+                  // print('build go to homepage button');
+                  return TextButton(
+                    onPressed: () => context.go('/page1'),
+                    child: Text('Go to First Page'),
+                  );
+                },
+              ),
+
+              Builder(
+                builder: (context) {
+                  // print('build show error button');
+                  return TextButton(
+                    onPressed: () => ErrorDialog.show('Something went wrong!'),
+                    // onPressed:
+                    //     () => showDialog(
+                    //       context: context,
+                    //       builder: (context) {
+                    //         return ErrorDialog(
+                    //           content: 'Something went wrong!',
+                    //           onClose: () {
+                    //             Navigator.pop(context);
+                    //           },
+                    //         );
+                    //       },
+                    //     ),
+                    child: Text('Show Error'),
+                  );
+                },
+              ),
+
+              Builder(
+                builder: (context) {
+                  // print('build show loading button');
+                  return TextButton(
+                    onPressed: () {
+                      final cancel = LoadingDialog.show();
+                      Future.delayed(Duration(seconds: 3), cancel);
+                    },
+                    child: Text('Show Loading'),
+                  );
+                },
+              ),
+              Builder(
+                builder: (context) {
+                  // print('build show info button');
+                  return TextButton(
+                    onPressed: () => InfoDialog.show('Archive only!'),
+                    child: Text('Show Info'),
+                  );
+                },
+              ),
+              Builder(
+                builder: (context) {
+                  // print('build show success button');
+                  return TextButton(
+                    onPressed: () async {
+                      await SuccessDialog.show('Deleted correctly!');
+                      print('Success');
+                    },
+                    child: Text('Show Success'),
+                  );
+                },
+              ),
+              Builder(
+                builder: (context) {
+                  // print('build show prompt button');
+                  return TextButton(
+                    onPressed: () async {
+                      final result = await PromptDialog.show(
+                        'Do you want to delete?',
+                        dismissable: true,
+                        onRightClick: (close) async {
+                          await Future.delayed(Duration(seconds: 1));
+                          close();
+                        },
+                      );
+
+                      print('Prompt result: $result');
+                    },
+                    child: Text('Show Prompt'),
+                  );
+                },
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
