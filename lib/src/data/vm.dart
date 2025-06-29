@@ -14,7 +14,9 @@ abstract class Vm<E extends VmEvent, S> extends ChangeNotifier {
   S _state;
   S get state => _state;
 
-  Vm(this._state);
+  Vm(this._state) {
+    onInit();
+  }
 
   @protected
   Future<void> onEvent(E event, VmEmitter<S> emit);
@@ -30,7 +32,7 @@ abstract class Vm<E extends VmEvent, S> extends ChangeNotifier {
 
   @nonVirtual
   void addEvent(E event) {
-    dev.log("addEvent() for $runtimeType VM with event: $event");
+    dev.log("addEvent() for $runtimeType VM with event: ${event.runtimeType}");
     unawaited(onEvent(event, _emit));
   }
 
@@ -48,6 +50,10 @@ abstract class Vm<E extends VmEvent, S> extends ChangeNotifier {
     if (!isDisposed) {
       super.notifyListeners();
     }
+  }
+
+  void onInit() {
+    dev.log("onInit() for $runtimeType VM");
   }
 }
 

@@ -2,7 +2,12 @@ export 'package:go_router/go_router.dart'
     show GoRouterHelper, StatefulNavigationShell, StatefulShellBranch, GoRoute;
 
 export 'package:provider/provider.dart'
-    show Provider, ChangeNotifierProvider, ReadContext, SelectContext;
+    show
+        Provider,
+        InheritedProvider,
+        ChangeNotifierProvider,
+        ReadContext,
+        SelectContext;
 
 export 'src/run_app.dart';
 export 'src/data/command.dart';

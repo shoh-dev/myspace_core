@@ -1,5 +1,8 @@
 include: package:flutter_lints/flutter.yaml
 
+formatter: 
+  trailing_commas: preserve
+
 analyzer:
   errors:
     invalid_override_of_non_virtual_member: error
