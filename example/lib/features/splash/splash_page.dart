@@ -51,16 +51,6 @@ class SplashPage extends StatelessWidget {
               //     );
               //   },
               // ),
-              AppStoreWatcher<AppStore>(
-                builder: (context, store, _) {
-                  // print('build store counter');
-                  return TextButton(
-                    onPressed: store.increment,
-                    child: Text("Store: ${store.counter}"),
-                  );
-                },
-              ),
-
               Builder(
                 builder: (context) {
                   // print('build go to homepage button');

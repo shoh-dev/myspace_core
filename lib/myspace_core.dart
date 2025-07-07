@@ -1,5 +1,10 @@
 export 'package:go_router/go_router.dart'
-    show GoRouterHelper, StatefulNavigationShell, StatefulShellBranch, GoRoute;
+    show
+        GoRouterHelper,
+        GoRouterState,
+        StatefulNavigationShell,
+        StatefulShellBranch,
+        GoRoute;
 
 export 'package:provider/provider.dart'
     show
@@ -17,3 +22,5 @@ export 'src/data/app_store.dart';
 export 'src/data/dependency.dart';
 export 'src/routing/routing.dart';
 export 'src/ui/ui.dart';
+
+export 'src/helpers/app_store.dart';

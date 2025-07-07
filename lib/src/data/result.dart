@@ -26,6 +26,8 @@ class ResultError<T> extends Result<T> {
 
 extension ResultErrorHelper<T> on ResultError<T> {
   String get errorMessage {
+    if (e is String) return e.toString();
+
     return switch (e) {
       Exception _ => e.toString().replaceAll('Exception: ', ""),
       TypeError _ => e.toString(),

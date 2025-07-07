@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:myspace_core/src/data/vm.dart';
 import 'package:myspace_core/src/routing/transitions.dart';
-import 'package:myspace_ui/myspace_ui.dart';
 import 'package:provider/provider.dart';
 
 typedef RouteVm<VM extends Vm> =

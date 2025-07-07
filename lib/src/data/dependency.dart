@@ -11,3 +11,5 @@ abstract class Dependency {
 
 abstract class DependencyChangeNotifier extends ChangeNotifier
     implements Dependency {}
+
+mixin DependencyMixin on Dependency {}

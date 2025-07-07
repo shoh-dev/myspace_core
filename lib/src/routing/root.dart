@@ -15,6 +15,8 @@ class UIRoot {
   final Listenable? refreshListenable;
   final String? initialLocation;
   final TransitionType? defaultTransition;
+  final Widget Function(BuildContext context, GoRouterState state)?
+  errorBuilder;
 
   const UIRoot({
     required this.layouts,
@@ -22,6 +24,7 @@ class UIRoot {
     this.defaultTransition,
     this.refreshListenable,
     this.initialLocation,
+    this.errorBuilder,
   });
 
   GoRouter toRouter() {
@@ -32,6 +35,7 @@ class UIRoot {
       initialLocation: initialLocation,
       redirect: redirect,
       refreshListenable: refreshListenable,
+      errorBuilder: errorBuilder,
       observers: [BotToastNavigatorObserver()],
       routes: [
         for (final layout in layouts)

@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:myspace_core/src/data/app_store.dart';
 import 'package:myspace_core/src/data/dependency.dart';
@@ -18,20 +17,24 @@ Future<void> runMySpaceApp<St extends CoreAppStore>(
   final builder = config.builder;
   final localizationsDelegates = config.localizationsDelegates;
 
-  runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider<St>.value(value: appStore),
-        for (final dep in dependencies) dep,
-      ],
-      child: UIApp(
-        routerConfig: router,
-        theme: theme.theme,
-        themeMode: theme.themeMode,
-        builder: builder,
-        localizationsDelegates: localizationsDelegates,
-      ),
+  final multiProvider = MultiProvider(
+    providers: [
+      ChangeNotifierProvider<St>.value(value: appStore),
+      for (final dep in dependencies) dep,
+    ],
+    builder: (context, child) => UIApp(
+      routerConfig: router,
+      theme: theme.theme,
+      themeMode: theme.themeMode,
+      builder: builder,
+      localizationsDelegates: localizationsDelegates?.call(context),
+      supportedLocales: config.supportedLocales?.call(context),
+      locale: config.locale?.call(context),
     ),
+  );
+
+  runApp(
+    config.appWrapper?.call(multiProvider) ?? multiProvider,
   );
 }
 
@@ -41,7 +44,11 @@ class CoreAppConfig<St extends CoreAppStore> {
   final List<InheritedProvider<Dependency>> dependencies;
   final UITheme theme;
   final Widget Function(BuildContext context, Widget? child)? builder;
-  final Iterable<LocalizationsDelegate<dynamic>>? localizationsDelegates;
+  final Iterable<LocalizationsDelegate<dynamic>> Function(BuildContext context)?
+  localizationsDelegates;
+  final Iterable<Locale> Function(BuildContext context)? supportedLocales;
+  final Locale Function(BuildContext context)? locale;
+  final Widget Function(Widget child)? appWrapper;
 
   CoreAppConfig({
     required this.root,
@@ -50,6 +57,9 @@ class CoreAppConfig<St extends CoreAppStore> {
     this.theme = const UITheme(),
     this.builder,
     this.localizationsDelegates,
+    this.supportedLocales,
+    this.locale,
+    this.appWrapper,
   });
 }
 
