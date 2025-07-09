@@ -17,7 +17,7 @@ abstract class CoreAppStore<E extends CoreAppStoreEvent, S>
 
   @mustCallSuper
   void onInit() {
-    dev.log("onInit() for $runtimeType AppStore");
+    dev.log("onInit()", name: runtimeType.toString());
   }
 
   @protected
@@ -33,11 +33,16 @@ abstract class CoreAppStore<E extends CoreAppStoreEvent, S>
   }
 
   @nonVirtual
-  void addEvent(E event) {
-    dev.log(
-      "addEvent() for $runtimeType AppStore with event: ${event.runtimeType}",
-    );
-    unawaited(onEvent(event, _emit));
+  Future<void> addEvent(E event) {
+    dev.log("addEvent(): ${event.runtimeType}", name: runtimeType.toString());
+    return onEvent(event, _emit);
+  }
+
+  @nonVirtual
+  Future<void> addEvents(List<E> events) async {
+    for (final event in events) {
+      await addEvent(event);
+    }
   }
 }
 

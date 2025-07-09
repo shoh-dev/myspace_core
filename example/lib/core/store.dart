@@ -13,5 +13,3 @@ class AppStore extends CoreAppStore<CoreAppStoreEvent, AppStoreState> {
 }
 
 class AppStoreState {}
-
-sealed class _NoActionEvent extends CoreAppStoreEvent<void> {}

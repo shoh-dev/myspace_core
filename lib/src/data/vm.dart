@@ -31,9 +31,19 @@ abstract class Vm<E extends VmEvent, S> extends ChangeNotifier {
   }
 
   @nonVirtual
-  void addEvent(E event) {
-    dev.log("addEvent() for $runtimeType VM with event: ${event.runtimeType}");
-    unawaited(onEvent(event, _emit));
+  Future<void> addEvent(E event) {
+    dev.log(
+      "addEvent(): ${event.runtimeType}",
+      name: runtimeType.toString(),
+    );
+    return onEvent(event, _emit);
+  }
+
+  @nonVirtual
+  Future<void> addEvents(List<E> events) async {
+    for (final event in events) {
+      await addEvent(event);
+    }
   }
 
   @mustCallSuper
@@ -41,7 +51,10 @@ abstract class Vm<E extends VmEvent, S> extends ChangeNotifier {
   void dispose() {
     super.dispose();
     isDisposed = true;
-    dev.log("dispose() for $runtimeType VM");
+    dev.log(
+      "dispose()",
+      name: runtimeType.toString(),
+    );
   }
 
   @protected
@@ -53,7 +66,10 @@ abstract class Vm<E extends VmEvent, S> extends ChangeNotifier {
   }
 
   void onInit() {
-    dev.log("onInit() for $runtimeType VM");
+    dev.log(
+      "onInit()",
+      name: runtimeType.toString(),
+    );
   }
 }
 

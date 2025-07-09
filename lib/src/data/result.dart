@@ -1,3 +1,5 @@
+import 'package:myspace_core/myspace_core.dart';
+
 sealed class Result<T> {
   const Result();
 
@@ -7,6 +9,15 @@ sealed class Result<T> {
 
   factory Result.error(dynamic e, {String? code, StackTrace? stackTrace}) {
     return ResultError<T>(e, code: code, stackTrace: stackTrace);
+  }
+
+  //fromResultError
+  factory Result.fromResultError(ResultError error) {
+    return ResultError<T>(
+      error.e,
+      code: error.code,
+      stackTrace: error.stackTrace,
+    );
   }
 }
 

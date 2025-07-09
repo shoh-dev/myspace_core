@@ -22,5 +22,6 @@ export 'src/data/app_store.dart';
 export 'src/data/dependency.dart';
 export 'src/routing/routing.dart';
 export 'src/ui/ui.dart';
+export 'src/data/ui_result.dart';
 
 export 'src/helpers/app_store.dart';
