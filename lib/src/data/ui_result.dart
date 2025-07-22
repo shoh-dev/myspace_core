@@ -63,3 +63,13 @@ class UIResultLoading<T> extends UIResult<T> {
 class UIResultInitial<T> extends UIResult<T> {
   const UIResultInitial();
 }
+
+extension UIResultHelpers<T> on UIResult<T> {
+  bool get isOk => this is UIResultOk<T>;
+
+  bool get isError => this is UIResultError<T>;
+
+  bool get isLoading => this is UIResultLoading<T>;
+
+  bool get isInitial => this is UIResultInitial<T>;
+}

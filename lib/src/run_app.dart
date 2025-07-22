@@ -16,10 +16,12 @@ Future<void> runMySpaceApp<St extends CoreAppStore>(
   final router = root.toRouter();
   final builder = config.builder;
   final localizationsDelegates = config.localizationsDelegates;
+  final uiConfiguration = config.uiConfiguration ?? UiConfiguration();
 
   final multiProvider = MultiProvider(
     providers: [
       ChangeNotifierProvider<St>.value(value: appStore),
+      ChangeNotifierProvider<UiConfiguration>.value(value: uiConfiguration),
       for (final dep in dependencies) dep,
     ],
     builder: (context, child) => UIApp(
@@ -49,6 +51,7 @@ class CoreAppConfig<St extends CoreAppStore> {
   final Iterable<Locale> Function(BuildContext context)? supportedLocales;
   final Locale Function(BuildContext context)? locale;
   final Widget Function(Widget child)? appWrapper;
+  final UiConfiguration? uiConfiguration;
 
   CoreAppConfig({
     required this.root,
@@ -60,6 +63,7 @@ class CoreAppConfig<St extends CoreAppStore> {
     this.supportedLocales,
     this.locale,
     this.appWrapper,
+    this.uiConfiguration,
   });
 }
 

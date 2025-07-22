@@ -46,6 +46,7 @@ sealed class UIRoute<VM extends Vm> {
     TransitionType? transitionType,
     Duration? transitionDuration,
     RouteVm<VM>? vm,
+    ExitCallback? onExit,
   }) => UIPage(
     path: path,
     pages: pages,
@@ -55,6 +56,7 @@ sealed class UIRoute<VM extends Vm> {
     transitionType: transitionType,
     transitionDuration: transitionDuration,
     vm: vm,
+    onExit: onExit,
   );
 
   factory UIRoute.dialog({
@@ -161,6 +163,7 @@ class UIPage<VM extends Vm> extends UIRoute<VM> {
     this.pages = const [],
     this.transitionDuration,
     this.vm,
+    this.onExit,
   });
 
   final String? name;
@@ -171,6 +174,7 @@ class UIPage<VM extends Vm> extends UIRoute<VM> {
   final TransitionType? transitionType;
   final Duration? transitionDuration;
   final RouteVm<VM>? vm;
+  final ExitCallback? onExit;
 
   GoRoute toGoRoute({required TransitionType defaultTransition}) {
     final transition = transitionType ?? defaultTransition;
@@ -178,6 +182,7 @@ class UIPage<VM extends Vm> extends UIRoute<VM> {
       path: path,
       name: name,
       redirect: redirect,
+      onExit: onExit,
       routes: [
         for (final subPage in pages)
           subPage.build(defaultTransition: defaultTransition),

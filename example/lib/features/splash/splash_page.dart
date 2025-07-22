@@ -109,7 +109,7 @@ class SplashPage extends StatelessWidget {
                 builder: (context) {
                   // print('build show info button');
                   return TextButton(
-                    onPressed: () => InfoDialog.show('Archive only!'),
+                    onPressed: () => InfoDialog.show(info: 'Archive only!'),
                     child: Text('Show Info'),
                   );
                 },
