@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 
 import 'dart:developer' as dev;
@@ -15,7 +16,9 @@ abstract class Vm<E extends VmEvent, S> extends ChangeNotifier {
   S get state => _state;
 
   Vm(this._state) {
-    onInit();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      onInit();
+    });
   }
 
   @protected
@@ -32,10 +35,7 @@ abstract class Vm<E extends VmEvent, S> extends ChangeNotifier {
 
   @nonVirtual
   Future<void> addEvent(E event) {
-    dev.log(
-      "addEvent(): ${event.runtimeType}",
-      name: runtimeType.toString(),
-    );
+    dev.log("addEvent(): ${event.runtimeType}", name: runtimeType.toString());
     return onEvent(event, _emit);
   }
 
@@ -44,6 +44,7 @@ abstract class Vm<E extends VmEvent, S> extends ChangeNotifier {
     for (final event in events) {
       await addEvent(event);
     }
+    // return Future.wait(events.map(addEvent));
   }
 
   @mustCallSuper
@@ -51,10 +52,7 @@ abstract class Vm<E extends VmEvent, S> extends ChangeNotifier {
   void dispose() {
     super.dispose();
     isDisposed = true;
-    dev.log(
-      "dispose()",
-      name: runtimeType.toString(),
-    );
+    dev.log("dispose()", name: runtimeType.toString());
   }
 
   @protected
@@ -66,10 +64,7 @@ abstract class Vm<E extends VmEvent, S> extends ChangeNotifier {
   }
 
   void onInit() {
-    dev.log(
-      "onInit()",
-      name: runtimeType.toString(),
-    );
+    dev.log("onInit()", name: runtimeType.toString());
   }
 }
 

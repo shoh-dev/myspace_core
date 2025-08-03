@@ -1,9 +1,6 @@
 import 'dart:developer';
 
 import 'package:example/core/store.dart';
-import 'package:example/features/first/first_layout.dart';
-import 'package:example/features/home/home_page.dart';
-import 'package:example/features/home/home_page_vm.dart';
 import 'package:example/features/splash/splash_page.dart';
 import 'package:example/features/splash/splash_page_vm.dart';
 import 'package:flutter/material.dart';
