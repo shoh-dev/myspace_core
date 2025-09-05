@@ -5,17 +5,24 @@ import 'package:example/features/splash/splash_page.dart';
 import 'package:example/features/splash/splash_page_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:myspace_core/myspace_core.dart';
+import 'package:myspace_ui/myspace_ui.dart';
+
+class MyTheme extends AppTheme {
+  @override
+  ThemeData get darkTheme => ThemeData.dark();
+
+  @override
+  ThemeData get lightTheme => ThemeData.light();
+}
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   final appConfig = CoreAppConfig<AppStore>(
     appStore: AppStore(),
-    // theme: UITheme(
-    // themeMode:
-    // (context) =>
-    // context.select<ThemeDep, ThemeMode>((value) => value.themeMode),
-    // theme: (context) => MySpaceTheme(borderRadius: 6),
-    // ),
+    theme: UITheme(
+      themeMode: (context) => ThemeMode.light,
+      theme: (context) => MyTheme(),
+    ),
     root: UIRoot(
       defaultTransition: TransitionType.cupertino,
       layouts: [
@@ -24,13 +31,6 @@ void main() {
           vm: (context, state) => SplashPageVm(),
           builder: (context, state) => const SplashPage(),
         ),
-        // UIRoute<HomePageVm>.page(
-        //   path: "/home",
-        //   vm: (context, state) => HomePageVm(),
-        //   builder: (context, state) => HomePage(),
-        // ),
-
-        // firstLayout,
       ],
     ),
 

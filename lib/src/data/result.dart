@@ -60,4 +60,22 @@ extension ResultHelper<T> on Result<T> {
     final error = this as ResultError<T>;
     return onError(error.errorMessage);
   }
+
+  ResultOk<T>? get okOrNull {
+    switch (this) {
+      case ResultOk<T> ok:
+        return ok;
+      case ResultError<T> _:
+        return null;
+    }
+  }
+
+  ResultError<T>? get errorOrNull {
+    switch (this) {
+      case ResultOk<T> _:
+        return null;
+      case ResultError<T> error:
+        return error;
+    }
+  }
 }

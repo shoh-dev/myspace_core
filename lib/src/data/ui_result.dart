@@ -12,7 +12,7 @@ sealed class UIResult<T> {
   }
 
   //fromUIResultError
-  factory UIResult.fromUIResultError(UIResultError error) {
+  factory UIResult.fromUIResultError(UIResultError<T> error) {
     return UIResultError<T>(
       error.error,
       code: error.code,
@@ -28,7 +28,7 @@ sealed class UIResult<T> {
     return UIResultInitial<T>();
   }
 
-  factory UIResult.fromResult(Result result) {
+  factory UIResult.fromResult(Result<T> result) {
     switch (result) {
       case ResultOk():
         return UIResultOk<T>(result.value);

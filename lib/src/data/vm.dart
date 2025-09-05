@@ -8,6 +8,10 @@ import 'dart:developer' as dev;
 
 typedef VmEmitter<S> = void Function(S newState, [bool notify]);
 
+class EmptyVmState {
+  const EmptyVmState();
+}
+
 abstract class Vm<E extends VmEvent, S> extends ChangeNotifier {
   late final log = Logger(runtimeType.toString());
   bool isDisposed = false;

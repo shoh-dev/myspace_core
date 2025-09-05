@@ -97,7 +97,9 @@ class UILayout<VM extends Vm> extends UIRoute<VM> {
     return StatefulShellRoute.indexedStack(
       pageBuilder: (context, state, navigationShell) {
         final transition = transitionType ?? defaultTransition;
-        Widget child = layoutBuilder!(context, state, navigationShell);
+        Widget child =
+            layoutBuilder?.call(context, state, navigationShell) ??
+            navigationShell;
         if (vm != null) {
           child = ChangeNotifierProvider(
             create: (context) {
