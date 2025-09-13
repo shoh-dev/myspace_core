@@ -6,8 +6,8 @@ extension AppStoreHelpers on BuildContext {
     return read<T>();
   }
 
-  void addAppStoreEvent<E extends CoreAppStoreEvent>(E event) {
+  Future<void> addAppStoreEvent<E extends CoreAppStoreEvent>(E event) {
     final appStore = readAppStore<CoreAppStore<E, dynamic>>();
-    appStore.addEvent(event);
+    return appStore.addEvent(event);
   }
 }

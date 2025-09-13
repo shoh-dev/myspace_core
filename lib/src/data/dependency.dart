@@ -5,7 +5,7 @@ abstract class Dependency {
 
   void dispose() {
     // Optionally override this method to clean up resources
-    print('Disposing dependency: $runtimeType');
+    debugPrint('Disposing dependency: $runtimeType');
   }
 }
 

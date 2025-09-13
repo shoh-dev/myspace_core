@@ -9,10 +9,10 @@ flutter create
 ### Info
 Package create date - 09.01.2025
 
-Flutter 3.27.1 • channel stable • https://github.com/flutter/flutter.git
-Framework • revision 17025dd882 (2 weeks ago) • 2024-12-17 03:23:09 +0900
-Engine • revision cb4b5fff73
-Tools • Dart 3.6.0 • DevTools 2.40.2
+Flutter 3.32.0 • channel stable • https://github.com/flutter/flutter.git
+Framework • revision be698c48a6 (4 months ago) • 2025-05-19 12:59:14 -0700
+Engine • revision 1881800949 (4 months ago) • 2025-05-19 10:54:07 -0700
+Tools • Dart 3.8.0 • DevTools 2.45.1
 
 
 <!-- TODOS -->
