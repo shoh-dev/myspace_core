@@ -1,6 +1,4 @@
 import 'dart:developer';
-
-import 'package:example/core/store.dart';
 import 'package:example/features/splash/splash_page_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:myspace_core/myspace_core.dart';

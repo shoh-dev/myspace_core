@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:myspace_core/src/data/app_store.dart';
 import 'package:myspace_core/src/data/dependency.dart';
 import 'package:myspace_core/src/routing/root.dart';
@@ -22,6 +23,7 @@ Future<void> runMySpaceApp<St extends CoreAppStore>(
     providers: [
       ChangeNotifierProvider<St>.value(value: appStore),
       ChangeNotifierProvider<UiConfiguration>.value(value: uiConfiguration),
+      Provider<GoRouter>.value(value: router),
       for (final dep in dependencies) dep,
     ],
     builder: (context, child) => UIApp(
