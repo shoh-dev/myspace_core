@@ -10,6 +10,12 @@ typedef VmEmitter<S> = void Function(S newState, [bool notify]);
 
 class EmptyVmState {
   const EmptyVmState();
+
+  factory EmptyVmState.initial() => const EmptyVmState();
+}
+
+class EmptyVmEvent extends VmEvent<void> {
+  EmptyVmEvent();
 }
 
 abstract class Vm<E extends VmEvent, S> extends ChangeNotifier {

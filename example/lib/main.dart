@@ -3,6 +3,10 @@ import 'dart:developer';
 import 'package:example/core/store.dart';
 import 'package:example/features/splash/splash_page.dart';
 import 'package:example/features/splash/splash_page_vm.dart';
+import 'package:example/features/third/auth_service.dart';
+import 'package:example/features/third/auth_repository.dart';
+import 'package:example/features/third/page.dart';
+import 'package:example/features/third/vm.dart';
 import 'package:flutter/material.dart';
 import 'package:myspace_core/myspace_core.dart';
 import 'package:myspace_ui/myspace_ui.dart';
@@ -31,6 +35,11 @@ void main() {
           vm: (context, state) => SplashPageVm(),
           builder: (context, state) => const SplashPage(),
         ),
+        UIRoute<ThirdPageVm>.page(
+          path: "/third",
+          vm: (context, state) => ThirdPageVm(context.read()),
+          builder: (context, state) => const ThirdPage(),
+        ),
       ],
     ),
 
@@ -40,6 +49,10 @@ void main() {
         create: (context) => AuthApiClient(context.read()),
       ),
       ChangeNotifierProvider<ThemeDep>(create: (context) => ThemeDep()),
+      Provider<AuthService>(create: (context) => AuthService()),
+      ChangeNotifierProvider<AuthRepository>(
+        create: (context) => AuthRepository(context.read()),
+      ),
     ],
   );
   runMySpaceApp(appConfig);

@@ -63,6 +63,16 @@ class SplashPage extends StatelessWidget {
                 builder: (context) {
                   // print('build go to homepage button');
                   return TextButton(
+                    onPressed: () => context.push('/third'),
+                    child: Text('Go to Third Page'),
+                  );
+                },
+              ),
+
+              Builder(
+                builder: (context) {
+                  // print('build go to homepage button');
+                  return TextButton(
                     onPressed: () => context.go('/page1'),
                     child: Text('Go to First Page'),
                   );

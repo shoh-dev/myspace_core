@@ -4,6 +4,15 @@ import 'package:dio/dio.dart';
 import 'package:myspace_core/myspace_core.dart';
 import 'package:myspace_ui/myspace_ui.dart';
 
+class NewPageVm extends Vm<EmptyVmEvent, EmptyVmState> {
+  NewPageVm() : super(EmptyVmState.initial());
+
+  @override
+  Future<void> onEvent(EmptyVmEvent event, VmEmitter<EmptyVmState> emit) async {
+    // No events to handle
+  }
+}
+
 class SplashPageVm extends Vm<SplashPageEvent, SplashPageState> {
   SplashPageVm() : super(SplashPageState.initial());
 
@@ -34,7 +43,7 @@ class SplashPageVm extends Vm<SplashPageEvent, SplashPageState> {
           }
           final data = (response.data as List).firstOrNull;
           emit(state.copyWith(counter: data ?? 0));
-          event.completer.complete(data);
+          // event.completer.complete(data);
         } catch (e) {
           ErrorDialog.show(
             e.toString(),
