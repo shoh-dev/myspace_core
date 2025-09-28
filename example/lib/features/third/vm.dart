@@ -3,9 +3,9 @@ import 'package:example/features/third/auth_repository.dart';
 import 'package:myspace_core/myspace_core.dart';
 
 class ThirdPageVm extends Vm<EmptyVmEvent, EmptyVmState> {
-  ThirdPageVm(this._authService) : super(const EmptyVmState());
+  ThirdPageVm(this._authRepository) : super(const EmptyVmState());
 
-  final AuthRepository _authService;
+  final AuthRepository _authRepository;
 
   @override
   Future<void> onEvent(EmptyVmEvent event, VmEmitter<EmptyVmState> emit) async {
@@ -17,12 +17,12 @@ class ThirdPageVm extends Vm<EmptyVmEvent, EmptyVmState> {
   UIResult<void> _authStatus = UIResult.initial();
   UIResult<void> get authStatus => _authStatus;
 
-  Creds? get creds => _authService.creds;
+  Creds? get creds => _authRepository.creds;
 
   void login() {
     _authStatus = UIResult.loading();
     notifyListeners();
-    _authService.login().whenComplete(() {
+    _authRepository.login().whenComplete(() {
       _authStatus = UIResult.ok(null);
       notifyListeners();
     });
@@ -31,7 +31,7 @@ class ThirdPageVm extends Vm<EmptyVmEvent, EmptyVmState> {
   void logout() {
     _authStatus = UIResult.loading();
     notifyListeners();
-    _authService.logout().whenComplete(() {
+    _authRepository.logout().whenComplete(() {
       _authStatus = UIResult.ok(null);
       notifyListeners();
     });
