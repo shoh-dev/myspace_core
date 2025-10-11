@@ -1,17 +1,7 @@
 import 'dart:developer';
-
 import 'package:dio/dio.dart';
 import 'package:myspace_core/myspace_core.dart';
 import 'package:myspace_ui/myspace_ui.dart';
-
-class NewPageVm extends Vm<EmptyVmEvent, EmptyVmState> {
-  NewPageVm() : super(EmptyVmState.initial());
-
-  @override
-  Future<void> onEvent(EmptyVmEvent event, VmEmitter<EmptyVmState> emit) async {
-    // No events to handle
-  }
-}
 
 class SplashPageVm extends Vm<SplashPageEvent, SplashPageState> {
   SplashPageVm() : super(SplashPageState.initial());
@@ -21,44 +11,45 @@ class SplashPageVm extends Vm<SplashPageEvent, SplashPageState> {
     SplashPageEvent event,
     VmEmitter<SplashPageState> emit,
   ) async {
+    // No events to handle
     switch (event) {
       case IncrementCounterEvent():
-        //may call api
-        emit(state.copyWith(counter: state.counter + event.incrementBy));
-        break;
+        return _increment(emit);
       case DecrementCounterEvent():
-        emit(state.copyWith(counter: state.counter - event.decrementBy));
-        break;
+        return _decrement(emit);
       case RandomNumberEvent():
-        final cancel = LoadingDialog.show();
-        try {
-          final dio = Dio();
-          final response = await dio.get(
-            'http://www.randomnumberapi.com/api/v1.0/random?min=1&max=100',
-          );
-          if (response.statusCode != 200) {
-            log('Failed to fetch random number: ${response.statusCode}');
-            cancel();
-            return;
-          }
-          final data = (response.data as List).firstOrNull;
-          emit(state.copyWith(counter: data ?? 0));
-          // event.completer.complete(data);
-        } catch (e) {
-          ErrorDialog.show(
-            e.toString(),
-            actionText: 'Retry',
-            onClose: (close) {
-              addEvent(event);
-              close();
-            },
-          );
-        } finally {
-          cancel();
-        }
-        break;
+        // TODO: Handle this case.
+        throw UnimplementedError();
     }
   }
+
+  Future<void> _increment(VmEmitter<SplashPageState> emit) async {
+    log('Start _increment');
+    await Future.delayed(const Duration(seconds: 2));
+    print('Incremented counter to ${state.counter + 1}');
+    emit(state.copyWith(counter: state.counter + 1));
+    log('End _increment');
+  }
+
+  Future<void> _decrement(VmEmitter<SplashPageState> emit) async {
+    log('Start _decrement');
+    await Future.delayed(const Duration(seconds: 2));
+    print('Decremented counter to ${state.counter - 1}');
+    emit(state.copyWith(counter: state.counter - 1));
+    log('End _decrement');
+  }
+
+  // void _increment(VmEmitter<SplashPageState> emit) {
+  //   log('Start _increment');
+  //   emit(state.copyWith(counter: state.counter + 1));
+  //   log('End _increment');
+  // }
+
+  // void _decrement(VmEmitter<SplashPageState> emit) {
+  // log('Start _decrement');
+  // emit(state.copyWith(counter: state.counter - 1));
+  // log('End _decrement');
+  // }
 }
 
 class SplashPageState {
@@ -74,6 +65,11 @@ class SplashPageState {
       counter: counter ?? this.counter,
       counter2: counter2 ?? this.counter2,
     );
+  }
+
+  @override
+  String toString() {
+    return 'SplashPageState(counter: $counter, counter2: $counter2)';
   }
 }
 
