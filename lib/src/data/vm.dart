@@ -6,6 +6,8 @@ import 'package:logging/logging.dart';
 
 import 'dart:developer' as dev;
 
+import 'package:mutex/mutex.dart';
+
 typedef VmEmitter<S> = void Function(S newState, [bool notify]);
 
 class EmptyVmState {
@@ -34,19 +36,32 @@ abstract class Vm<E extends VmEvent, S> extends ChangeNotifier {
   @protected
   Future<void> onEvent(E event, VmEmitter<S> emit);
 
-  void _emit(S newState, [bool notify = true]) {
-    if (state != newState) {
-      _state = newState;
-      if (notify) {
-        notifyListeners();
+  void _emit(S newState, [bool notify = true]) async {
+    // if (state != newState) {
+    //   _state = newState;
+    //   if (notify) {
+    //     notifyListeners();
+    //   }
+    // }
+    return _mutex.protect(() async {
+      if (state != newState) {
+        _state = newState;
+        if (notify) {
+          notifyListeners();
+        }
       }
-    }
+    });
   }
+
+  final _mutex = Mutex();
 
   @nonVirtual
   Future<void> addEvent(E event) {
     dev.log("addEvent(): ${event.runtimeType}", name: runtimeType.toString());
     return onEvent(event, _emit);
+    // return _mutex.protect(() {
+    //   return onEvent(event, _emit);
+    // });
   }
 
   @nonVirtual

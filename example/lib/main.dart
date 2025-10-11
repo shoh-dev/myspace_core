@@ -28,7 +28,6 @@ void main() {
       theme: (context) => MyTheme(),
     ),
     root: UIRoot(
-      defaultTransition: TransitionType.cupertino,
       layouts: [
         UIRoute<SplashPageVm>.page(
           path: "/",
@@ -42,7 +41,6 @@ void main() {
         ),
       ],
     ),
-
     dependencies: [
       Provider<ApiClient>(create: (context) => ApiClient()),
       Provider<AuthApiClient>(
