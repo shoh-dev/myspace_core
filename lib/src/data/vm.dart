@@ -47,13 +47,13 @@ abstract class Vm<E extends VmEvent, S> extends ChangeNotifier {
 
   final _eventMutexGuards = <Type, Mutex>{};
 
-  // void cancelAllEvents() {
-  //   _eventMutexGuards.forEach((key, mutex) {
-  //     if (mutex.isLocked) {
-  //       mutex.release();
-  //     }
-  //   });
-  // }
+  void _cancelAllEvents() {
+    _eventMutexGuards.forEach((key, mutex) {
+      if (mutex.isLocked) {
+        mutex.release();
+      }
+    });
+  }
 
   @nonVirtual
   Future<void> addEvent(E event) {
@@ -62,6 +62,13 @@ abstract class Vm<E extends VmEvent, S> extends ChangeNotifier {
       event.runtimeType,
       () => Mutex(),
     );
+    if (mutex.isLocked) {
+      dev.log(
+        "Event ${event.runtimeType} is already being processed, skipping.",
+        name: '$runtimeType',
+      );
+      return Future.value();
+    }
     return mutex.protect(() => onEvent(event, _emit));
   }
 
@@ -75,9 +82,10 @@ abstract class Vm<E extends VmEvent, S> extends ChangeNotifier {
   @mustCallSuper
   @override
   void dispose() {
-    super.dispose();
+    _cancelAllEvents();
     isDisposed = true;
     dev.log("dispose()", name: runtimeType.toString());
+    super.dispose();
   }
 
   @protected
