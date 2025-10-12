@@ -25,16 +25,14 @@ class SplashPageVm extends Vm<SplashPageEvent, SplashPageState> {
 
   Future<void> _increment(VmEmitter<SplashPageState> emit) async {
     log('Start _increment');
-    await Future.delayed(const Duration(seconds: 2));
-    print('Incremented counter to ${state.counter + 1}');
+    // await Future.delayed(const Duration(seconds: 4));
     emit(state.copyWith(counter: state.counter + 1));
     log('End _increment');
   }
 
   Future<void> _decrement(VmEmitter<SplashPageState> emit) async {
     log('Start _decrement');
-    await Future.delayed(const Duration(seconds: 2));
-    print('Decremented counter to ${state.counter - 1}');
+    await Future.delayed(const Duration(seconds: 5));
     emit(state.copyWith(counter: state.counter - 1));
     log('End _decrement');
   }

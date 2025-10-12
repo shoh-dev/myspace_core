@@ -178,14 +178,21 @@ class SplashPage extends StatelessWidget {
                             //   vm.addEvent(IncrementCounterEvent(0)),
                             //   vm.addEvent(DecrementCounterEvent(0)),
                             // ]);
-                            vm.addEvents([
-                              IncrementCounterEvent(0),
-                              DecrementCounterEvent(0),
-                              // IncrementCounterEvent(0),
-                              // DecrementCounterEvent(0),
-                            ]);
+                            // vm.addEvents([
+                            //   IncrementCounterEvent(0),
+                            //   DecrementCounterEvent(0),
+                            //   // IncrementCounterEvent(0),
+                            //   // DecrementCounterEvent(0),
+                            // ]);
+                            vm.addEvent(IncrementCounterEvent(0));
                           },
                           child: Text('Increment'),
+                        ),
+                        TextButton(
+                          onPressed: () async {
+                            vm.addEvent(DecrementCounterEvent(0));
+                          },
+                          child: Text('Decrement'),
                         ),
                       ],
                     );
