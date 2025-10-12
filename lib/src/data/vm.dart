@@ -45,12 +45,24 @@ abstract class Vm<E extends VmEvent, S> extends ChangeNotifier {
     }
   }
 
-  final _eventMutex = Mutex();
+  final _eventMutexGuards = <Type, Mutex>{};
+
+  // void cancelAllEvents() {
+  //   _eventMutexGuards.forEach((key, mutex) {
+  //     if (mutex.isLocked) {
+  //       mutex.release();
+  //     }
+  //   });
+  // }
 
   @nonVirtual
   Future<void> addEvent(E event) {
-    dev.log("addEvent()", name: '$runtimeType');
-    return _eventMutex.protect(() => onEvent(event, _emit));
+    dev.log("addEvent(): ${event.runtimeType}", name: '$runtimeType');
+    final mutex = _eventMutexGuards.putIfAbsent(
+      event.runtimeType,
+      () => Mutex(),
+    );
+    return mutex.protect(() => onEvent(event, _emit));
   }
 
   @nonVirtual
