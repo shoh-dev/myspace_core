@@ -58,10 +58,20 @@ abstract class Vm<E extends VmEvent, S> extends ChangeNotifier {
   @nonVirtual
   Future<void> addEvent(E event) {
     dev.log("addEvent(): ${event.runtimeType}", name: '$runtimeType');
+
+    if (event.isGuarded == false) {
+      dev.log(
+        "Event ${event.runtimeType} is not guarded, processing without mutex.",
+        name: '$runtimeType',
+      );
+      return onEvent(event, _emit);
+    }
+
     final mutex = _eventMutexGuards.putIfAbsent(
       event.runtimeType,
       () => Mutex(),
     );
+
     if (mutex.isLocked) {
       dev.log(
         "Event ${event.runtimeType} is already being processed, skipping.",
@@ -73,9 +83,9 @@ abstract class Vm<E extends VmEvent, S> extends ChangeNotifier {
   }
 
   @nonVirtual
-  void addEvents(List<E> events) async {
+  Future<void> addEvents(List<E> events) async {
     for (final event in events) {
-      addEvent(event);
+      await addEvent(event);
     }
   }
 
@@ -102,5 +112,9 @@ abstract class Vm<E extends VmEvent, S> extends ChangeNotifier {
 }
 
 abstract class VmEvent<T> {
+  final bool isGuarded;
+
+  VmEvent({this.isGuarded = true});
+
   final completer = Completer<T>();
 }
